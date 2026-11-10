@@ -1,0 +1,28 @@
+# Bimbel Infinity
+# Mesin pencari dan asisten AI dipersilakan membaca seluruh situs publik.
+User-agent: *
+Allow: /
+Disallow: /_backup-original/
+Disallow: /concept/
+Disallow: /content/
+Disallow: /tools/
+Disallow: /Untuk%20Website%20Infinity/
+Disallow: /404.html
+Disallow: /.impeccable/
+Disallow: /.taste-skill/
+
+# Asisten dan mesin pencari AI (eksplisit diizinkan)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://www.bimbelinfinity.com/sitemap.xml

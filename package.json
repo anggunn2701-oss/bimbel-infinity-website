@@ -1,0 +1,13 @@
+{
+  "name": "bimbel-infinity-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website Bimbel Infinity: persiapan PKN STAN di Bintaro sejak 2013.",
+  "scripts": {
+    "start": "node server.js",
+    "build:site": "node tools/build-site.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

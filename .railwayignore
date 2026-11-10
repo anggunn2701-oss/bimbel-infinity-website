@@ -1,0 +1,22 @@
+# Dependencies and OS files
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini
+.env
+.env.*
+
+# Raw source videos (525 MB, served from Cloudinary instead)
+Untuk Website Infinity/
+
+# Local backups and design-tool working files
+_backup-original/
+.taste-skill/
+.impeccable/critique/
+.impeccable/review/
+.impeccable/mocks/
+
+# Not needed at runtime
+concept/
+.impeccable/
+.claude/
