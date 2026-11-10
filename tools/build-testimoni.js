@@ -111,8 +111,8 @@ const html = `${head}<body>
       <span class="intro-line"><i></i></span>
     </div>
     <svg class="intro-edge" viewBox="0 0 1440 200" preserveAspectRatio="none">
-      <path d="M0 0H1440V150C1100 240 380 60 0 200Z" fill="var(--green)"/>
-      <path d="M0 0H1440V105C1100 195 380 15 0 155Z" fill="var(--orange)"/>
+      <path d="M0 0H1440V150C1100 240 380 60 0 200Z" fill="var(--curve-c)"/>
+      <path d="M0 0H1440V105C1100 195 380 15 0 155Z" fill="var(--curve-b)"/>
       <path d="M0 0H1440V60C1100 150 380 -30 0 110Z" fill="var(--paper)"/>
     </svg>
   </div>
@@ -140,7 +140,7 @@ ${header}  <main id="main">
           <ul class="t-mosaic">
             ${mosaic}
           </ul>
-          <svg class="curve t-curve" viewBox="0 0 600 400" preserveAspectRatio="none"><path d="M600 0C470 60 430 220 250 400H340C480 250 520 120 600 96Z" fill="var(--orange)"/><path d="M600 96C520 120 480 250 340 400H600Z" fill="var(--green)"/></svg>
+          <svg class="curve t-curve" viewBox="0 0 600 400" preserveAspectRatio="none"><path d="M600 0C470 60 430 220 250 400H340C480 250 520 120 600 96Z" fill="var(--curve-b)"/><path d="M600 96C520 120 480 250 340 400H600Z" fill="var(--curve-c)"/></svg>
         </div>
       </div>
     </section>

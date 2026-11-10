@@ -17,6 +17,7 @@ const FILES = {
 };
 const load = (k) => JSON.parse(fs.readFileSync(path.join(ROOT, FILES[k]), 'utf8'));
 const save = (k, data) => fs.writeFileSync(path.join(ROOT, FILES[k]), JSON.stringify(data, null, 2) + '\n');
+const themes = () => require(path.join(ROOT, 'tools', 'themes.js'));   // tema warna: content/themes/*.json
 const strip = (h) => String(h).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 const today = () => new Date().toISOString().slice(0, 10);
 const git = (...args) => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
@@ -69,8 +70,10 @@ const TOOLS = {
         beranda: { judul_hero: `${home.hero.title} ${home.hero.highlight}`, program: home.programs.map((p) => p.name), jumlah_faq: home.faq.length },
         video_testimoni: vids.map((v) => `${v.key} (${v.name})`),
         lulusan_2018: alumni.length,
+        tema_aktif: themes().active(),
+        tema_tersedia: themes().list(),
         perubahan_belum_terbit: status || 'tidak ada',
-        alur: 'edit (save_post, update_hero, set_homepage_faq, update_program, save_testimonial_video, update_alumni) → build_site → review_changes → publish (confirm: true)',
+        alur: 'edit (save_post, update_hero, set_homepage_faq, update_program, save_testimonial_video, update_alumni, set_theme) → build_site → review_changes → publish (confirm: true)',
       };
     },
   },
@@ -266,6 +269,36 @@ const TOOLS = {
       for (const k of ['name', 'major', 'school', 'quote']) if (a[k] !== undefined) p[k] = a[k].trim();
       save('alumni', list);
       return { lulusan: { slug: p.slug, name: p.name, major: p.major, school: p.school }, langkah_berikut: 'build_site' };
+    },
+  },
+
+  list_themes: {
+    description: 'Daftar tema warna website (mis. "hijau" dan "biru") dan tema yang sedang aktif. Warna tidak bisa diedit lewat MCP; hanya bisa memilih tema yang sudah disiapkan.',
+    schema: { type: 'object', properties: {} },
+    run() {
+      const T = themes(), on = T.active();
+      return T.list().map((name) => {
+        const t = T.load(name);
+        const rep = T.contrastReport(t);
+        return { tema: name, aktif: name === on, nama: t.label, keterangan: t.description,
+          warna_utama: t.colors.primary, warna_kedua: t.colors.accent, aksen: t.colors.highlight,
+          kontras: rep.every((r) => r.lolos) ? 'semua pasangan teks lolos WCAG AA' : rep.filter((r) => !r.lolos) };
+      });
+    },
+  },
+
+  set_theme: {
+    description: 'Ganti tema warna website ke salah satu tema dari list_themes. Mengubah warna semua halaman, logo, gambar share, dan warna browser. Setelah ini jalankan build_site, lalu publish (dengan persetujuan pengguna).',
+    schema: { type: 'object', properties: { theme: { type: 'string', description: 'nama tema, mis. "hijau" atau "biru"' } }, required: ['theme'] },
+    run({ theme }) {
+      const T = themes();
+      need(T.list().includes(theme), `Tema "${theme}" tidak ada. Pilihan: ${T.list().join(', ')}.`);
+      const before = T.active();
+      if (before === theme) return { status: `tema ${theme} sudah aktif`, langkah_berikut: 'tidak ada' };
+      const fails = T.contrastReport(T.load(theme)).filter((r) => !r.lolos);
+      need(!fails.length, `Tema ${theme} tidak lolos cek kontras: ${fails.map((r) => `${r.pasangan} ${r.rasio}`).join('; ')}`);
+      fs.writeFileSync(path.join(ROOT, 'content/theme.json'), JSON.stringify({ active: theme }, null, 2) + '\n');
+      return { status: `tema diganti: ${before} → ${theme}`, catatan: 'Logo, gambar share, dan warna ikut berganti saat build.', langkah_berikut: 'build_site' };
     },
   },
 

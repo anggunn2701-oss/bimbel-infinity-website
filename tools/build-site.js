@@ -11,7 +11,8 @@ const POSTS = readJson('content/blog-posts.json');
 const HOME = readJson('content/home.json');
 const VIDEOS = readJson('content/testimonial-videos.json');
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
-const write = (f, s) => { fs.mkdirSync(path.dirname(path.join(root, f)), { recursive: true }); fs.writeFileSync(path.join(root, f), s); };
+let versionAssets = (h) => h;
+const write = (f, s) => { fs.mkdirSync(path.dirname(path.join(root, f)), { recursive: true }); fs.writeFileSync(path.join(root, f), f.endsWith('.html') ? versionAssets(s) : s); };
 const strip = (h) => h.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 const idDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
@@ -20,6 +21,27 @@ const BLOG_URL = `${S.SITE}/blog/`;
 const ARROW = '<svg class="arr" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h7.5M6.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 let idx = read('index.html');
+
+/* ---------- theme (content/theme.json -> content/themes/<name>.json) ---------- */
+const TH = require('./themes');
+const THEME = TH.load(TH.active());
+const failedPairs = TH.contrastReport(THEME).filter((x) => !x.lolos);
+if (failedPairs.length) throw new Error(`Tema ${THEME.name} gagal cek kontras: ${failedPairs.map((x) => `${x.pasangan} ${x.rasio} (min ${x.minimal})`).join('; ')}`);
+{
+  let css = read('styles.css');
+  const a = css.indexOf('/* THEME:START */'), b = css.indexOf('/* THEME:END */') + '/* THEME:END */'.length;
+  if (a < 0 || b < a) throw new Error('THEME markers missing in styles.css');
+  write('styles.css', css.slice(0, a) + TH.rootCss(THEME) + css.slice(b));
+}
+fs.copyFileSync(path.join(root, THEME.logo), path.join(root, 'assets/brand/logo-symbol.png'));
+if (fs.existsSync(path.join(root, THEME.og))) fs.copyFileSync(path.join(root, THEME.og), path.join(root, 'assets/og/og-default.jpg'));
+const CSS_V = `${THEME.name}-${require('crypto').createHash('md5').update(read('styles.css')).digest('hex').slice(0, 8)}`;
+versionAssets = (h) => h   // cache-busting so a theme switch shows at once
+  .replace(/(styles\.css)(\?v=[\w-]+)?"/g, `$1?v=${CSS_V}"`)
+  .replace(/(logo-symbol\.png)(\?v=[\w-]+)?"/g, `$1?v=${THEME.name}"`)
+  .replace(/(og-default\.jpg)(\?v=[\w-]+)?"/g, `$1?v=${THEME.name}"`)
+  .replace(/<meta name="theme-color" content="[^"]*" \/>/, `<meta name="theme-color" content="${THEME.themeColor}" />`);
+idx = versionAssets(idx);
 
 /* ---------- 0. data-driven homepage parts (content/home.json, content/testimonial-videos.json) ---------- */
 idx = R.between(idx, 'HERO', R.hero(HOME.hero));
@@ -80,6 +102,8 @@ write('index.html', idx);
 
 /* ---------- 2. testimoni.html (rebuilt from the homepage shell) ---------- */
 require('./build-testimoni.js');
+write('testimoni.html', read('testimoni.html'));
+write('404.html', read('404.html'));
 
 /* ---------- 3. blog ---------- */
 idx = read('index.html');

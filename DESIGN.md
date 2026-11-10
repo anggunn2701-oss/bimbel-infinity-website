@@ -74,3 +74,23 @@ Built from the four "Siswa Infinity Lulus 2018" documents (Depok 6, Jember 13, L
 - **Schema.org** (JSON-LD `@graph`): `EducationalOrganization`+`LocalBusiness` (address, founder, founding date, sameAs Instagram), `WebSite`, `WebPage`, three `Course` programs and a `FAQPage` on the homepage (FAQ answers that still hold placeholders are left out); `CollectionPage` on testimoni; `Blog` + `BlogPosting` + `BreadcrumbList` + `FAQPage` on the blog.
 - **Share image**: `assets/og/og-default.jpg` (1200×630), rendered from `tools/og-image.html`.
 - **Crawlers**: robots.txt allows all search engines and AI assistants (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended and others) and keeps backups, tools, raw videos and drafts out.
+
+## Themes
+
+Two complete colour themes; the MCP can only switch between them (`list_themes`, `set_theme`), never edit single colours.
+
+| Role token | `hijau` (brand 2026, default) | `biru` (Brand Colour Guideline) |
+|---|---|---|
+| `--primary` / `-deep` / `-wash` | #0B6B53 / #08523F / #E4EFEA | #0A43FF / #0634CC / #E7EEFF |
+| `--accent` (CTA, closing card) | #FF5A00 | #FF7A00 |
+| `--accent-display` / `--accent-text` (orange as type) | #E14E00 / #B83F00 | #E06200 / #B84A00 |
+| `--on-accent` / `--on-accent-display` | #1E0C02 / #FFFFFF | #0F172A / #0F172A (white on #FF7A00 is only 2.6:1) |
+| `--highlight` / `-deep` | lime #E7FF4F / #D2EC2A | yellow #FFE200 / #F2C900 |
+| `--curve-a` / `-b` / `-c` (S-curve bands) | cream / orange / green | cyan / orange / blue |
+| `--paper` / `--soft` / `--line` / `--line-2` | #FFFDF8 / #F6F1E4 / #E8E2D3 / #D6CCB6 | #F8FAFC / #F1F4F9 / #E2E8F0 / #CBD5E1 |
+| `--ink` / `-2` / `-3` | #0F2A22 / #3D554C / #5F726B | #0F172A / #475569 / #5B6B80 |
+
+- Source: `content/themes/<name>.json`; active theme: `content/theme.json`. `tools/build-site.js` writes the THEME block at the top of `styles.css`, copies the theme's logo (`assets/brand/themes/<name>/logo-symbol.png` → `assets/brand/logo-symbol.png`) and share image (`assets/og/themes/<name>.jpg` → `assets/og/og-default.jpg`), sets `theme-color`, and versions `styles.css`, logo and share image (`?v=`) so a switch shows at once.
+- The build refuses a theme when any text/background pair the design uses fails WCAG AA (`tools/themes.js`, 19 pairs).
+- CSS uses role tokens only (`--primary`, `--accent`, `--highlight`, `--curve-*`, `--shade` for dark overlays, `--ph-text`); alphas are `color-mix()` on those tokens. No brand hex values outside the THEME block.
+- The blue logo was cut from the guideline image (`assets/brand/themes/biru/brand-guideline.webp`); replace it with the original file when available. Share images are rendered from `tools/og-image.html?t=<name>`.
