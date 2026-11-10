@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<title>Panduan MCP Infinity Konten</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  @page :first { margin: 0; }
+  :root { --green:#0B6B53; --green-wash:#E4EFEA; --orange:#E14E00; --ink:#0F2A22; --ink2:#3D554C; --ink3:#5F726B; --line:#E2DDD0; --paper:#FFFDF8; --soft:#F6F1E4; }
+  * { box-sizing: border-box; }
+  html { font-family: "Source Sans 3", sans-serif; font-size: 10.5pt; line-height: 1.55; color: var(--ink); }
+  body { margin: 0; }
+  h1, h2, h3, .cover-title { font-family: Lexend, sans-serif; letter-spacing: -0.02em; line-height: 1.2; }
+  h2 { font-size: 17pt; margin: 0 0 10px; color: var(--ink); break-after: avoid; }
+  h3 { font-size: 12pt; margin: 18px 0 8px; color: var(--green); break-after: avoid; }
+  p { margin: 0 0 8px; } ul, ol { margin: 0 0 10px; padding-left: 18px; } li { margin: 2px 0; }
+  section { break-before: page; }
+  code { font-family: "JetBrains Mono", monospace; font-size: 8.6pt; background: var(--soft); padding: 1px 4px; border-radius: 3px; }
+  pre { background: #10261F; color: #E8F1EC; border-radius: 6px; padding: 10px 12px; margin: 6px 0 12px; white-space: pre-wrap; word-break: break-word; break-inside: avoid; }
+  pre code { background: none; color: inherit; padding: 0; font-size: 8.3pt; line-height: 1.5; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 12px; font-size: 9.3pt; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  thead th { background: var(--soft); font-family: Lexend, sans-serif; font-weight: 600; font-size: 8.8pt; }
+  tr { break-inside: avoid; }
+  .tools td { font-size: 8.8pt; } .tools code.tool { font-weight: 500; color: var(--green); background: var(--green-wash); }
+  .params { font-size: 8.2pt; } .pdesc { color: var(--ink3); } .req { color: var(--orange); font-size: 6.8pt; margin-left: 3px; text-transform: uppercase; letter-spacing: .04em; }
+  .muted { color: var(--ink3); }
+  .box { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 8px 0 12px; background: #fff; break-inside: avoid; }
+  .box.warn { border-color: #F0C9B0; background: #FFF6F0; } .box.ok { border-color: #BFD9CE; background: var(--green-wash); }
+  .box b.t { display: block; font-family: Lexend, sans-serif; font-size: 9.5pt; margin-bottom: 3px; }
+  .kv td:first-child { width: 32%; font-weight: 600; }
+  .steps { counter-reset: s; list-style: none; padding: 0; }
+  .steps li { counter-increment: s; position: relative; padding: 6px 0 6px 34px; border-bottom: 1px solid var(--line); }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: #fff; font: 600 9pt Lexend, sans-serif; display: grid; place-items: center; }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0 12px; }
+  .flow span { background: var(--green-wash); color: var(--green); font: 500 8.6pt "JetBrains Mono", monospace; padding: 4px 8px; border-radius: 4px; }
+  .flow i { color: var(--ink3); font-style: normal; }
+  /* cover */
+  .cover { height: 297mm; padding: 30mm 22mm; background: var(--paper); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .cover svg { position: absolute; right: 0; bottom: 0; width: 60%; height: 42%; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 700 12pt Lexend, sans-serif; letter-spacing: .05em; }
+  .brand img { height: 30px; } .g { color: #0B6B53; } .o { color: #FF5A00; }
+  .cover-title { font-size: 34pt; font-weight: 700; margin-top: 46mm; max-width: 14ch; }
+  .cover-title em { font-style: normal; color: var(--orange); }
+  .cover p.lead { font-size: 13pt; color: var(--ink2); max-width: 46ch; margin-top: 14px; }
+  .cover .meta { margin-top: auto; position: relative; z-index: 1; font-size: 9.5pt; color: var(--ink2); }
+  .toc { columns: 2; column-gap: 24px; } .toc li { break-inside: avoid; }
+</style></head>
+<body>
+
+<div class="cover">
+  <div class="brand"><img src="../assets/brand/themes/hijau/logo-symbol.png" alt=""><span><span class="g">BIMBEL</span><span class="o">INFINITY</span></span></div>
+  <div class="cover-title">Panduan MCP <em>Infinity Konten</em></div>
+  <p class="lead">Cara menyambungkan Muse, Grok, ChatGPT, Claude, dan asisten AI lain ke website bimbelinfinity.com, lalu mengedit konten, tema, kontak, dan SEO dengan aman.</p>
+  <div class="meta">Versi 10 November 2026 · 27 tools · Dokumen internal, jangan dibagikan bersama token</div>
+  <svg viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true"><path d="M600 0C470 60 430 220 250 400H340C480 250 520 120 600 96Z" fill="#FCF7EB"/><path d="M600 96C520 120 480 250 340 400H600Z" fill="#FF5A00"/></svg>
+</div>
+
+<section>
+  <h2>Isi panduan</h2>
+  <ol class="toc">
+    <li>Apa itu MCP Infinity Konten</li><li>Data koneksi dan token</li><li>Menyambungkan Grok</li><li>Menyambungkan Muse</li>
+    <li>ChatGPT, Claude, dan asisten lain</li><li>Bot buatan sendiri (n8n, kode)</li><li>Instruksi untuk asisten (system prompt)</li>
+    <li>Alur kerja standar</li><li>Contoh perintah per tugas</li><li>Daftar lengkap tools</li><li>Aturan dan pengaman</li>
+    <li>Mengatasi masalah</li><li>Membatalkan perubahan</li><li>Lampiran: file data</li>
+  </ol>
+
+  <h2 style="margin-top:22px">1. Apa itu MCP Infinity Konten</h2>
+  <p><b>MCP (Model Context Protocol)</b> adalah standar terbuka yang membuat asisten AI bisa memakai "tools" dari sistem lain. MCP Infinity Konten memberi asisten Anda 27 tools untuk mengurus website <b>bimbelinfinity.com</b>: menulis artikel blog, mengubah hero, FAQ, dan program, mengelola video testimoni dan data alumni, kontak dan media sosial, tema warna, serta SEO.</p>
+  <table class="kv">
+    <tr><td>Cara kerja</td><td>Asisten memanggil tool → server MCP mengedit file data di repo GitHub website → <code>build_site</code> membangun ulang halaman → <code>publish</code> mengirim ke GitHub → Railway men-deploy ulang bimbelinfinity.com dalam 1–2 menit.</td></tr>
+    <tr><td>Dua cara akses</td><td><b>Remote</b> (untuk Grok, Muse, ChatGPT, Claude.ai, bot lain): alamat HTTPS dengan token.<br><b>Lokal</b> (Claude Code di komputer yang punya folder website): otomatis lewat <code>.mcp.json</code>.</td></tr>
+    <tr><td>Yang tidak bisa</td><td>Mengubah tata letak atau desain halaman, mengedit warna satu per satu (hanya memilih tema), menulis harga, dan menerbitkan tanpa persetujuan.</td></tr>
+  </table>
+  <div class="box ok"><b class="t">Aman untuk dicoba</b>Semua perubahan tercatat sebagai commit di GitHub dan bisa dibatalkan (bab 13). Tool yang menghapus atau menerbitkan selalu butuh <code>confirm: true</code>.</div>
+</section>
+
+<section>
+  <h2>2. Data koneksi dan token</h2>
+  <table class="kv">
+    <tr><td>Server URL</td><td><code>https://mcp-infinity.up.railway.app/mcp</code></td></tr>
+    <tr><td>Transport</td><td>Streamable HTTP (JSON-RPC 2.0, balasan JSON). Tidak perlu SSE.</td></tr>
+    <tr><td>Autentikasi</td><td>Header <code>Authorization: Bearer &lt;MCP_TOKEN&gt;</code></td></tr>
+    <tr><td>Untuk klien yang hanya menerima URL</td><td><code>https://mcp-infinity.up.railway.app/mcp/&lt;MCP_TOKEN&gt;</code> (token di dalam URL)</td></tr>
+    <tr><td>Cek server hidup</td><td><code>https://mcp-infinity.up.railway.app/healthz</code> → <code>{"ok":true,"mode":"github"}</code></td></tr>
+    <tr><td>Nama server (label)</td><td><code>infinity-konten</code></td></tr>
+  </table>
+  <h3>Di mana MCP_TOKEN?</h3>
+  <ol class="steps">
+    <li>Buka Railway → project website → service <b>infinity-konten-mcp</b> → tab <b>Variables</b>.</li>
+    <li>Klik ikon mata di samping <code>MCP_TOKEN</code>, lalu salin.</li>
+    <li>Tempel hanya di pengaturan asisten yang Anda percaya. Jangan kirim di chat grup, email, atau dokumen publik.</li>
+  </ol>
+  <div class="box warn"><b class="t">Token = kunci edit website</b>Siapa pun yang memegang MCP_TOKEN bisa mengubah dan menerbitkan isi website. Kalau bocor: buat token baru (<code>node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"</code>), ganti nilai <code>MCP_TOKEN</code> di Railway, lalu Deploy. Semua koneksi lama otomatis tertolak. Perbarui token di setiap asisten.</div>
+  <h3>Tes cepat dari terminal</h3>
+  <pre><code>curl -s https://mcp-infinity.up.railway.app/mcp \
+  -H "Authorization: Bearer &lt;MCP_TOKEN&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'</code></pre>
+  <p>Hasilnya daftar 27 tools. Kalau 401: token salah. Kalau tool baru tidak muncul: restart service di Railway (bab 12).</p>
+</section>
+
+<section>
+  <h2>3. Menyambungkan Grok</h2>
+  <p>Grok bisa memakai MCP remote lewat pengaturan konektor/tools di aplikasinya atau lewat xAI API. Nama menu dan nama field bisa berubah mengikuti versi xAI; prinsipnya selalu sama: <b>alamat server</b> + <b>header Authorization</b>.</p>
+  <h3>Lewat aplikasi atau dashboard</h3>
+  <ol class="steps">
+    <li>Buka pengaturan konektor / MCP / tools di Grok, pilih tambah server remote (Custom MCP).</li>
+    <li>Isi nama <code>infinity-konten</code> dan URL <code>https://mcp-infinity.up.railway.app/mcp</code>.</li>
+    <li>Kalau ada kolom header atau authorization: isi <code>Bearer &lt;MCP_TOKEN&gt;</code>. Kalau tidak ada: pakai URL <code>https://mcp-infinity.up.railway.app/mcp/&lt;MCP_TOKEN&gt;</code>.</li>
+    <li>Tempel system prompt dari bab 7 ke instruksi kustom Grok.</li>
+    <li>Tes dengan perintah: <i>"Panggil site_overview dan ringkas isinya."</i></li>
+  </ol>
+  <h3>Lewat xAI API (untuk developer)</h3>
+  <p>Contoh bentuk permintaan dengan tool MCP remote. Sesuaikan nama field dengan dokumentasi xAI terbaru.</p>
+  <pre><code>{
+  "model": "grok-4",
+  "input": "Audit SEO website lalu laporkan 3 perbaikan terpenting.",
+  "tools": [{
+    "type": "mcp",
+    "server_label": "infinity-konten",
+    "server_url": "https://mcp-infinity.up.railway.app/mcp",
+    "headers": { "Authorization": "Bearer &lt;MCP_TOKEN&gt;" }
+  }]
+}</code></pre>
+
+  <h2 style="margin-top:20px">4. Menyambungkan Muse</h2>
+  <p>Muse dan asisten pribadi sejenis biasanya punya menu integrasi untuk "MCP server" atau "custom connector".</p>
+  <ol class="steps">
+    <li>Buka Settings → Integrations / Tools / MCP → Add MCP server (remote / HTTP).</li>
+    <li>Isi URL <code>https://mcp-infinity.up.railway.app/mcp</code>, transport <b>Streamable HTTP</b> (bukan SSE, bukan stdio).</li>
+    <li>Autentikasi: pilih "Bearer token" / "API key header" dan isi MCP_TOKEN. Kalau tidak ada pilihan header, pakai URL dengan token di ujungnya.</li>
+    <li>Tambahkan system prompt dari bab 7 sebagai instruksi asisten.</li>
+    <li>Tes: <i>"Tampilkan daftar artikel blog."</i> (tool <code>list_posts</code>).</li>
+  </ol>
+  <p>Kalau aplikasi meminta format JSON konfigurasi, pakai bentuk umum berikut:</p>
+  <pre><code>{
+  "mcpServers": {
+    "infinity-konten": {
+      "type": "http",
+      "url": "https://mcp-infinity.up.railway.app/mcp",
+      "headers": { "Authorization": "Bearer &lt;MCP_TOKEN&gt;" }
+    }
+  }
+}</code></pre>
+</section>
+
+<section>
+  <h2>5. ChatGPT, Claude, dan asisten lain</h2>
+  <table>
+    <thead><tr><th style="width:24%">Asisten</th><th>Cara menyambungkan</th></tr></thead>
+    <tbody>
+      <tr><td><b>ChatGPT</b></td><td>Settings → Connectors (developer mode) → tambah konektor MCP. Antarmuka ChatGPT umumnya tidak menyediakan kolom header, jadi pakai URL <code>https://mcp-infinity.up.railway.app/mcp/&lt;MCP_TOKEN&gt;</code> dengan autentikasi "None".</td></tr>
+      <tr><td><b>Claude.ai / Claude Desktop</b></td><td>Settings → Connectors → Add custom connector → URL <code>https://mcp-infinity.up.railway.app/mcp/&lt;MCP_TOKEN&gt;</code>.</td></tr>
+      <tr><td><b>Claude Code</b> (di komputer dengan folder website)</td><td>Otomatis lewat <code>.mcp.json</code> di folder proyek (server lokal, tanpa token). Untuk komputer lain, tambahkan server remote: <code>claude mcp add --transport http infinity-konten https://mcp-infinity.up.railway.app/mcp --header "Authorization: Bearer &lt;MCP_TOKEN&gt;"</code></td></tr>
+      <tr><td><b>Cursor, Windsurf, VS Code</b></td><td>Pakai blok JSON <code>mcpServers</code> dari bab 4 di file konfigurasi MCP editor.</td></tr>
+      <tr><td><b>Asisten lain</b></td><td>Cari pengaturan "MCP server", "remote MCP", atau "custom connector". Isi URL, transport Streamable HTTP, dan header Bearer (atau URL dengan token).</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:20px">6. Bot buatan sendiri (n8n, kode)</h2>
+  <p>Server menerima JSON-RPC lewat POST. Tiga panggilan dasar: <code>initialize</code>, <code>tools/list</code>, <code>tools/call</code>. Di n8n atau Make, pakai node MCP Client (jika ada) dengan URL dan header di atas, atau node HTTP Request.</p>
+  <pre><code>// Node.js 18+
+const URL = "https://mcp-infinity.up.railway.app/mcp", TOKEN = process.env.MCP_TOKEN;
+async function call(name, args = {}) {
+  const r = await fetch(URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: "Bearer " + TOKEN },
+    body: JSON.stringify({ jsonrpc: "2.0", id: Date.now(), method: "tools/call",
+                           params: { name, arguments: args } }),
+  });
+  const j = await r.json();
+  return j.result.content[0].text;   // isi balasan (JSON dalam bentuk teks)
+}
+console.log(await call("site_overview"));
+console.log(await call("seo_audit"));</code></pre>
+  <pre><code># Python
+import os, requests
+URL, TOKEN = "https://mcp-infinity.up.railway.app/mcp", os.environ["MCP_TOKEN"]
+def call(name, args=None):
+    r = requests.post(URL, headers={"Authorization": f"Bearer {TOKEN}"},
+        json={"jsonrpc": "2.0", "id": 1, "method": "tools/call",
+              "params": {"name": name, "arguments": args or {}}})
+    return r.json()["result"]["content"][0]["text"]
+print(call("list_posts"))</code></pre>
+</section>
+
+<section>
+  <h2>7. Instruksi untuk asisten (system prompt)</h2>
+  <p>Tempel teks ini ke "custom instructions", "system prompt", atau "persona" di Grok, Muse, ChatGPT, atau asisten lain. Instruksi ini menjaga bot tetap jujur dan tidak menerbitkan tanpa izin.</p>
+  <pre><code>Kamu adalah editor konten website Bimbel Infinity (https://bimbelinfinity.com), bimbel persiapan seleksi PKN STAN di Bintaro sejak 2013. Kamu bekerja lewat MCP "infinity-konten".
+
+Aturan:
+1. Mulai setiap sesi dengan site_overview.
+2. Jangan pernah mengarang data: angka kelulusan, harga, jadwal, kuota, nilai ambang batas, nomor kontak, akun media sosial, koordinat, jam buka, atau kutipan siswa. Pakai hanya data dari pengguna atau dari situs. Untuk hal yang berubah tiap tahun, arahkan pembaca ke pengumuman resmi PKN STAN.
+3. Tulis dalam bahasa Indonesia yang jelas untuk orang tua dan siswa. Kalimat pendek, tanpa jargon pemasaran.
+4. Artikel blog: buka dengan "Jawaban singkat" 2-3 kalimat, subjudul berbentuk pertanyaan, minimal 300 kata, 2-4 FAQ, dan link ke artikel lain bila relevan.
+5. Setelah mengedit: build_site, lalu seo_audit, lalu tunjukkan review_changes kepada pengguna.
+6. publish, delete_post, dan remove_testimonial_video hanya setelah pengguna menyetujui secara eksplisit; kirim confirm: true hanya setelah itu.
+7. Sekitar 2 menit setelah publish, jalankan ping_index.
+8. Kalau tool menolak input, laporkan alasannya kepada pengguna; jangan memaksa dengan data karangan.</code></pre>
+
+  <h2 style="margin-top:20px">8. Alur kerja standar</h2>
+  <div class="flow"><span>site_overview</span><i>→</i><span>edit</span><i>→</i><span>build_site</span><i>→</i><span>seo_audit</span><i>→</i><span>review_changes</span><i>→</i><span>publish (confirm)</span><i>→</i><span>ping_index</span></div>
+  <ol class="steps">
+    <li><b>site_overview</b>: lihat isi website, tema aktif, dan apakah ada perubahan yang belum terbit.</li>
+    <li><b>Edit</b>: pakai tool sesuai tugas (bab 9 dan 10).</li>
+    <li><b>build_site</b>: bangun ulang semua halaman, sitemap, dan llms.txt; mengecek link rusak.</li>
+    <li><b>seo_audit</b>: skor 0–100 dan daftar perbaikan; perbaiki yang bisa diperbaiki.</li>
+    <li><b>review_changes</b>: daftar file yang berubah. Tunjukkan ke pengguna.</li>
+    <li><b>publish</b> dengan <code>confirm: true</code> setelah pengguna setuju: commit dan push ke GitHub; website tayang 1–2 menit kemudian.</li>
+    <li><b>ping_index</b> sekitar 2 menit setelah publish: memberi tahu Bing/Copilot dan mesin pencari lain.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>9. Contoh perintah per tugas</h2>
+  <table>
+    <thead><tr><th style="width:30%">Tugas</th><th style="width:40%">Contoh perintah ke asisten</th><th>Tools yang dipakai</th></tr></thead>
+    <tbody>
+      <tr><td>Artikel baru</td><td>"Tulis artikel tentang cara membagi waktu saat mengerjakan TIU, lalu terbitkan."</td><td>save_post → build_site → seo_audit → publish → ping_index</td></tr>
+      <tr><td>Perbaiki artikel</td><td>"Tambahkan bagian tips latihan di artikel SKD dan perbarui tanggalnya."</td><td>get_post → save_post</td></tr>
+      <tr><td>Judul Google</td><td>"Pendekkan judul Google artikel program jadi maksimal 60 karakter."</td><td>get_page_seo → update_page_seo</td></tr>
+      <tr><td>Hero beranda</td><td>"Ganti paragraf hero jadi: ..."</td><td>get_homepage → update_hero</td></tr>
+      <tr><td>FAQ orang tua</td><td>"Isi jawaban FAQ garansi dengan: ..."</td><td>get_homepage → set_homepage_faq</td></tr>
+      <tr><td>Program</td><td>"Ubah format program Karantina jadi: Penuh waktu, menginap 2 bulan."</td><td>update_program</td></tr>
+      <tr><td>WhatsApp admin</td><td>"Pasang nomor WhatsApp admin 0812xxxxxxxx."</td><td>update_contact (whatsapp)</td></tr>
+      <tr><td>Media sosial</td><td>"Isi akun X @bimbelinfinity dan LinkedIn https://www.linkedin.com/company/…"</td><td>update_contact (social)</td></tr>
+      <tr><td>Video testimoni</td><td>"Tambahkan video ini: [link Cloudinary], nama Rina, D3 Akuntansi."</td><td>save_testimonial_video</td></tr>
+      <tr><td>Data alumni</td><td>"Perbaiki jurusan lulusan X jadi D3 Pajak."</td><td>list_alumni → update_alumni</td></tr>
+      <tr><td>Tema warna</td><td>"Ganti tema website ke biru." / "Kembalikan ke hijau."</td><td>list_themes → set_theme</td></tr>
+      <tr><td>SEO lokal</td><td>"Isi kode pos 15224, jam buka Senin–Jumat 08:00–17:00, dan link Google Maps ini: ..."</td><td>update_organization</td></tr>
+      <tr><td>Cek kesehatan SEO</td><td>"Audit SEO website dan perbaiki yang bisa diperbaiki tanpa mengarang data."</td><td>build_site → seo_audit</td></tr>
+    </tbody>
+  </table>
+  <div class="box"><b class="t">Tip</b>Sebut "lalu terbitkan" kalau ingin langsung tayang; asisten tetap akan meminta konfirmasi. Tanpa itu, perubahan tersimpan sebagai draf di server MCP sampai Anda bilang "terbitkan". Draf hilang kalau service MCP di-restart.</div>
+</section>
+
+<section>
+  <h2>10. Daftar lengkap tools</h2>
+  <p>Daftar ini dibuat otomatis dari kode MCP (27 tools). <span class="req" style="font-size:7pt">wajib</span> = parameter yang harus diisi.</p>
+  
+  <h3>Mulai dan cek</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">site_overview</code></td><td>Ringkasan website Bimbel Infinity dan apa saja yang bisa diedit lewat MCP ini. Panggil ini dulu.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">seo_audit</code></td><td>Audit SEO/AEO/GEO seluruh situs yang sudah di-build: panjang judul dan deskripsi, judul ganda, H1, alt gambar, canonical, schema JSON-LD, FAQ dan Jawaban singkat di artikel, jumlah kata, link internal, sitemap, llms.txt, robots.txt, data lembaga untuk SEO lokal. Jalankan build_site dulu. Memberi skor 0–100 dan daftar perbaikan.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">review_changes</code></td><td>Tampilkan file yang berubah dan belum diterbitkan (git).</td><td class="params"><span class="muted">tanpa parameter</span></td></tr></tbody>
+  </table>
+  <h3>Blog</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">list_posts</code></td><td>Daftar semua artikel blog.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">get_post</code></td><td>Ambil satu artikel lengkap (isi HTML, jawaban singkat, FAQ).</td><td class="params"><code>slug</code><sup class="req">wajib</sup></td></tr><tr><td><code class="tool">save_post</code></td><td>Buat artikel baru atau ganti artikel yang ada (berdasarkan slug). Tulis isi dalam Markdown (body_markdown: ## subjudul, paragraf, - daftar, 1. daftar, &gt; kutipan, tabel |a|b|, **tebal**, [link](url)). Jangan menulis angka jadwal/kuota/nilai ambang batas yang belum pasti; arahkan ke pengumuman resmi. Setelah ini jalankan build_site.</td><td class="params"><code>slug</code><sup class="req">wajib</sup><span class="pdesc"> huruf kecil-dan-strip, mis. "tips-tiu-pkn-stan"</span><br><code>title</code><sup class="req">wajib</sup><br><code>description</code><sup class="req">wajib</sup><span class="pdesc"> meta description, 70–160 karakter</span><br><code>category</code><sup class="req">wajib</sup><span class="pdesc"> mis. "Seleksi PKN STAN", "Program", "Cerita alumni", "Tentang Infinity"</span><br><code>summary</code><sup class="req">wajib</sup><span class="pdesc"> Jawaban singkat 2–3 kalimat, tampil di kotak paling atas</span><br><code>body_markdown</code><br><code>body_html</code><span class="pdesc"> alternatif body_markdown bila perlu HTML</span><br><code>faq</code><sup class="req">wajib</sup><br><code>date</code><span class="pdesc"> YYYY-MM-DD; default hari ini untuk artikel baru</span><br><code>minutes</code><span class="pdesc"> lama baca; default dihitung otomatis</span></td></tr><tr><td><code class="tool">delete_post</code></td><td>Hapus artikel blog. Wajib confirm: true.</td><td class="params"><code>slug</code><sup class="req">wajib</sup><br><code>confirm</code><sup class="req">wajib</sup></td></tr></tbody>
+  </table>
+  <h3>Beranda</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">get_homepage</code></td><td>Lihat konten beranda yang bisa diedit: hero, tiga program, dan FAQ orang tua.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">update_hero</code></td><td>Ubah judul hero (title + highlight berwarna oranye) dan paragraf di bawahnya.</td><td class="params"><code>title</code><br><code>highlight</code><br><code>lead</code></td></tr><tr><td><code class="tool">set_homepage_faq</code></td><td>Ganti seluruh daftar FAQ orang tua di beranda (urutan sesuai array). Jawaban boleh berisi &lt;span class="ph"&gt;…&lt;/span&gt; untuk data yang belum pasti; FAQ seperti itu tidak dimasukkan ke schema Google.</td><td class="params"><code>items</code><sup class="req">wajib</sup></td></tr><tr><td><code class="tool">update_program</code></td><td>Ubah satu program di tabel program beranda (Reguler Bintaro, Karantina, Cabang daerah). Hanya field yang dikirim yang diubah. Jangan menulis harga.</td><td class="params"><code>name</code><sup class="req">wajib</sup><br><code>new_name</code><br><code>for</code><br><code>place</code><br><code>format</code><br><code>feature</code><br><code>message</code><span class="pdesc"> pesan otomatis saat tombol Tanya biaya ditekan</span></td></tr></tbody>
+  </table>
+  <h3>Testimoni</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">list_testimonial_videos</code></td><td>Daftar video testimoni di barisan video beranda.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">save_testimonial_video</code></td><td>Tambah atau ubah video testimoni dari link Cloudinary (res.cloudinary.com/jnye0bk5/video/upload/...). Video landscape 1280×720 di-crop potret otomatis; face_x = posisi kiri crop (0–891, default 445 = tengah). Video asli di Cloudinary tidak diubah.</td><td class="params"><code>name</code><sup class="req">wajib</sup><br><code>caption</code><span class="pdesc"> baris kecil di bawah nama, mis. "D3 Pajak, lulus 2019"</span><br><code>cloudinary_url</code><br><code>key</code><span class="pdesc"> isi untuk mengubah video yang ada</span><br><code>face_x</code><br><code>position</code><span class="pdesc"> urutan di barisan, mulai 1</span></td></tr><tr><td><code class="tool">remove_testimonial_video</code></td><td>Hapus video dari barisan testimoni beranda (file di Cloudinary tetap). Wajib confirm: true.</td><td class="params"><code>key</code><sup class="req">wajib</sup><br><code>confirm</code><sup class="req">wajib</sup></td></tr><tr><td><code class="tool">list_alumni</code></td><td>Daftar lulusan 2018 di halaman testimoni (bisa disaring per kota).</td><td class="params"><code>city</code><span class="pdesc"> Depok, Jember, Lombok, atau Sukabumi</span></td></tr><tr><td><code class="tool">update_alumni</code></td><td>Perbaiki data teks satu lulusan (nama, jurusan, sekolah, testimoni). Testimoni ditampilkan apa adanya; jangan mengarang kutipan.</td><td class="params"><code>slug</code><sup class="req">wajib</sup><br><code>name</code><br><code>major</code><br><code>school</code><br><code>quote</code></td></tr></tbody>
+  </table>
+  <h3>Kontak dan media sosial</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">get_contact</code></td><td>Lihat kontak yang dipakai di semua tombol CTA, footer, formulir, dan data Google: WhatsApp, telepon, email, pesan pembuka WhatsApp, dan akun media sosial (Instagram, X, LinkedIn, TikTok, YouTube, Facebook, Threads).</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">update_contact</code></td><td>Ubah kontak admin dan akun media sosial di SEMUA tempat sekaligus (tombol CTA, footer + ikon sosmed, formulir, FAQ, artikel, schema Google, llms.txt). Hanya field yang dikirim yang diubah. Mengisi whatsapp membuat semua tombol jadi "Chat admin" yang membuka WhatsApp; kosongkan ("") untuk kembali ke telepon. Sosmed: isi nama akun atau link profil; "" menyembunyikan ikonnya. Jangan mengarang nomor atau akun; pakai yang diberikan pengguna.</td><td class="params"><code>whatsapp</code><span class="pdesc"> format 62xxxxxxxxxx tanpa + atau spasi, atau "" untuk menonaktifkan</span><br><code>phone</code><span class="pdesc"> telepon kantor, angka saja diawali 0, mis. 02122733744</span><br><code>email</code><br><code>wa_greeting</code><span class="pdesc"> pesan pembuka WhatsApp untuk tombol umum</span><br><code>social</code><span class="pdesc"> akun media sosial; nama akun (dengan/tanpa @) atau link profil. LinkedIn: link halaman atau "company/&lt;nama&gt;". "" = sembunyikan.</span><br><code>instagram</code><span class="pdesc"> (lama) sama dengan social.instagram</span><br><code>show_empty</code><span class="pdesc"> platform yang ikonnya tetap tampil redup ("segera hadir") walau akun belum diisi, mis. ["x","linkedin"]; [] = sembunyikan semua yang kosong</span></td></tr></tbody>
+  </table>
+  <h3>SEO, AEO, GEO</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">get_page_seo</code></td><td>Lihat judul Google (title) dan deskripsi semua halaman: home, testimoni, blog, dan tiap artikel (slug).</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">update_page_seo</code></td><td>Ubah judul Google (title) dan/atau meta description sebuah halaman. page = "home", "testimoni", "blog", atau slug artikel. Untuk artikel, title di sini hanya judul di Google; judul di halaman (H1) tetap. Pakai kata kunci yang dicari orang (mis. "bimbel PKN STAN", "SKD PKN STAN"), jangan menjanjikan hal yang tidak ada.</td><td class="params"><code>page</code><sup class="req">wajib</sup><br><code>title</code><br><code>description</code></td></tr><tr><td><code class="tool">get_organization</code></td><td>Lihat fakta lembaga yang dipakai Google dan asisten AI (schema.org): nama, deskripsi, alamat, kode pos, koordinat peta, jam buka, link Google Maps, area layanan, keahlian.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">update_organization</code></td><td>Lengkapi fakta lembaga untuk SEO lokal (Google Maps, "bimbel STAN dekat saya") dan GEO. Hanya field yang dikirim yang diubah. Isi hanya data yang benar dari pengguna; jangan menebak koordinat atau jam buka.</td><td class="params"><code>description</code><br><code>postalCode</code><span class="pdesc"> kode pos 5 angka</span><br><code>latitude</code><span class="pdesc"> mis. -6.27 (dari Google Maps)</span><br><code>longitude</code><span class="pdesc"> mis. 106.72</span><br><code>googleMapsUrl</code><span class="pdesc"> link Google Maps lokasi kantor</span><br><code>openingHours</code><span class="pdesc"> mis. [{"days":["Senin","Selasa","Rabu","Kamis","Jumat"],"opens":"08:00","closes":"17:00"}]</span><br><code>areaServed</code><span class="pdesc"> kota/negara yang dilayani, mis. ["Indonesia","Tangerang Selatan"]</span><br><code>alternateName</code></td></tr><tr><td><code class="tool">ping_index</code></td><td>Kirim IndexNow: beri tahu Bing (juga dipakai Copilot), Yandex, dan mesin pencari lain bahwa halaman berubah, supaya cepat terindeks. Panggil SETELAH publish dan deploy selesai (±2 menit). Tanpa urls = semua halaman di sitemap. Google tidak memakai IndexNow (Google membaca sitemap.xml).</td><td class="params"><code>urls</code><span class="pdesc"> URL lengkap https://bimbelinfinity.com/...; kosong = semua</span></td></tr></tbody>
+  </table>
+  <h3>Tema warna</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">list_themes</code></td><td>Daftar tema warna website (mis. "hijau" dan "biru") dan tema yang sedang aktif. Warna tidak bisa diedit lewat MCP; hanya bisa memilih tema yang sudah disiapkan.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">set_theme</code></td><td>Ganti tema warna website ke salah satu tema dari list_themes. Mengubah warna semua halaman, logo, gambar share, dan warna browser. Setelah ini jalankan build_site, lalu publish (dengan persetujuan pengguna).</td><td class="params"><code>theme</code><sup class="req">wajib</sup><span class="pdesc"> nama tema, mis. "hijau" atau "biru"</span></td></tr></tbody>
+  </table>
+  <h3>Terbit</h3>
+  <table class="tools">
+    <thead><tr><th style="width:24%">Tool</th><th style="width:44%">Fungsi</th><th>Parameter</th></tr></thead>
+    <tbody><tr><td><code class="tool">build_site</code></td><td>Bangun ulang semua halaman dari konten (beranda, testimoni, blog, sitemap, llms.txt) dan cek link rusak.</td><td class="params"><span class="muted">tanpa parameter</span></td></tr><tr><td><code class="tool">publish</code></td><td>Terbitkan: build ulang, commit semua perubahan, lalu push ke GitHub (Railway otomatis deploy ulang dalam beberapa menit). Tanyakan pengguna dulu, lalu kirim confirm: true.</td><td class="params"><code>message</code><sup class="req">wajib</sup><span class="pdesc"> ringkasan perubahan, mis. "Tambah artikel tips TIU"</span><br><code>confirm</code><sup class="req">wajib</sup></td></tr></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>11. Aturan dan pengaman</h2>
+  <ul>
+    <li><b>Konfirmasi wajib</b>: <code>publish</code>, <code>delete_post</code>, <code>remove_testimonial_video</code> ditolak tanpa <code>confirm: true</code>.</li>
+    <li><b>Tanpa harga</b>: <code>update_program</code> menolak teks yang berisi harga; biaya dijelaskan konsultan.</li>
+    <li><b>Kontak tervalidasi</b>: nomor WhatsApp otomatis dirapikan ke format 62…; email, telepon, dan nama akun sosmed dicek formatnya per platform.</li>
+    <li><b>Lokasi tervalidasi</b>: koordinat harus di wilayah Indonesia, jam buka format HH:MM, kode pos 5 angka.</li>
+    <li><b>Tema terkunci</b>: hanya bisa memilih tema yang sudah disiapkan (hijau, biru); build menolak tema yang gagal cek kontras WCAG AA.</li>
+    <li><b>Video</b>: hanya dari akun Cloudinary <code>jnye0bk5</code>; file asli tidak diubah.</li>
+    <li><b>Publish batal</b> kalau ada link rusak.</li>
+    <li><b>Kejujuran data</b>: asisten diminta (bab 7) tidak mengarang angka, jadwal, kuota, kutipan, kontak, atau lokasi. Periksa setiap artikel yang memuat angka sebelum menyetujui publish.</li>
+  </ul>
+
+  <h2 style="margin-top:20px">12. Mengatasi masalah</h2>
+  <table>
+    <thead><tr><th style="width:32%">Gejala</th><th>Penyebab dan solusi</th></tr></thead>
+    <tbody>
+      <tr><td>401 unauthorized</td><td>Token salah atau sudah diganti. Salin ulang MCP_TOKEN dari Railway.</td></tr>
+      <tr><td>502 / Application failed to respond</td><td>Service MCP mati atau target port domain tidak cocok. Cek Deploy Logs di Railway; samakan port domain dengan port di log.</td></tr>
+      <tr><td>Log: "GITHUB_TOKEN belum diisi" / "ditolak GitHub"</td><td>Isi atau perbarui <code>GITHUB_TOKEN</code> (fine-grained, repo <code>bimbel-infinity-website</code>, Contents: Read and write). Token kedaluwarsa juga menyebabkan ini.</td></tr>
+      <tr><td>Tool baru tidak muncul</td><td>Server memuat tools saat start. Railway → infinity-konten-mcp → Deployments → Restart.</td></tr>
+      <tr><td>publish gagal: link rusak</td><td>Perbaiki link yang disebut di pesan, lalu build_site dan publish lagi.</td></tr>
+      <tr><td>publish gagal sinkron</td><td>Ada perubahan baru di GitHub dari sumber lain. Ulangi publish; server menarik perubahan terbaru dulu.</td></tr>
+      <tr><td>ping_index "ditunda"</td><td>File kunci IndexNow belum tayang. Tunggu deploy 1–2 menit setelah publish, lalu ulangi.</td></tr>
+      <tr><td>Perubahan belum terlihat di website</td><td>Tunggu 1–2 menit (deploy Railway); muat ulang halaman. Kalau tetap, cek apakah publish berhasil (review_changes kosong).</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:20px">13. Membatalkan perubahan</h2>
+  <ol class="steps">
+    <li>Buka github.com/anggunn2701-oss/bimbel-infinity-website → <b>Commits</b>.</li>
+    <li>Cari commit dari "Infinity Konten MCP" yang ingin dibatalkan.</li>
+    <li>Minta developer menjalankan <code>git revert &lt;commit&gt;</code> lalu push, atau minta asisten mengembalikan isinya dengan tool yang sama (mis. set_theme ke tema sebelumnya, save_post dengan isi lama).</li>
+  </ol>
+
+  <h2 style="margin-top:20px">14. Lampiran: file data</h2>
+  <table>
+    <thead><tr><th style="width:38%">File di repo website</th><th>Isi</th></tr></thead>
+    <tbody>
+      <tr><td><code>content/blog-posts.json</code></td><td>Artikel blog: judul, judul Google, deskripsi, jawaban singkat, isi, FAQ.</td></tr>
+      <tr><td><code>content/home.json</code></td><td>Hero, tiga program, FAQ orang tua.</td></tr>
+      <tr><td><code>content/testimonial-videos.json</code></td><td>Video di barisan testimoni beranda.</td></tr>
+      <tr><td><code>content/alumni-2018.json</code></td><td>38 lulusan 2018 di halaman testimoni.</td></tr>
+      <tr><td><code>content/contact.json</code></td><td>WhatsApp, telepon, email, pesan WhatsApp, akun media sosial.</td></tr>
+      <tr><td><code>content/seo.json</code></td><td>Judul dan deskripsi Google per halaman, kunci IndexNow.</td></tr>
+      <tr><td><code>content/organization.json</code></td><td>Fakta lembaga untuk schema.org: alamat, kode pos, koordinat, jam buka.</td></tr>
+      <tr><td><code>content/theme.json</code>, <code>content/themes/*.json</code></td><td>Tema aktif dan isi tiap tema warna.</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Repo: website <code>anggunn2701-oss/bimbel-infinity-website</code> · server MCP remote <code>anggunn2701-oss/infinity-konten-mcp</code> · hosting Railway · domain bimbelinfinity.com.</p>
+</section>
+</body></html>

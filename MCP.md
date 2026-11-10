@@ -70,3 +70,7 @@ SEO tambahan: `get_page_seo` / `update_page_seo` (judul Google dan meta descript
 Bot yang berjalan di server lain tidak bisa menjalankan `mcp/server.js` di komputer ini. Untuk mereka ada repo terpisah **[anggunn2701-oss/infinity-konten-mcp](https://github.com/anggunn2701-oss/infinity-konten-mcp)** (private): MCP lewat HTTPS yang dideploy sebagai service sendiri di Railway. Saat start ia meng-clone repo website ini dan memakai tools dari `mcp/core.js` di sini, jadi tools cukup dirawat di satu tempat (restart service MCP setelah mengubah `mcp/core.js`).
 
 Langkah deploy, variabel (`MCP_TOKEN`, `GITHUB_TOKEN`), dan cara menyambungkan bot ada di README repo tersebut.
+
+## Panduan PDF
+
+`docs/Panduan-MCP-Infinity-Konten.pdf` (dibuat dengan `node tools/build-mcp-guide.js`; daftar tools diambil otomatis dari `mcp/core.js`). Dokumen internal; folder `docs/` tidak dilayani di website.
