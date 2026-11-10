@@ -26,12 +26,13 @@ Lalu restart Claude Desktop. Syarat: Node 20+ dan git terpasang, dan folder ini 
 - "Tambahkan video testimoni ini: https://res.cloudinary.com/jnye0bk5/video/upload/v…/nama.mp4, namanya Rina, D3 Akuntansi."
 - "Ubah judul hero jadi …"
 - "Perbaiki jurusan lulusan Arif Rahman jadi D3 Pajak."
+- "Pasang nomor WhatsApp admin 0812xxxxxxxx." (semua tombol jadi Chat admin yang membuka WhatsApp)
 - "Ganti tema website ke biru." (atau "kembalikan ke tema hijau")
 - "Terbitkan perubahannya."
 
 ## Alur
 
-1. **Edit**: `save_post`, `delete_post`, `update_hero`, `set_homepage_faq`, `update_program`, `save_testimonial_video`, `remove_testimonial_video`, `update_alumni`, `set_theme` (pilih tema warna dari `list_themes`; warna tidak bisa diedit satu per satu).
+1. **Edit**: `save_post`, `delete_post`, `update_hero`, `set_homepage_faq`, `update_program`, `save_testimonial_video`, `remove_testimonial_video`, `update_alumni`, `set_theme` (pilih tema warna dari `list_themes`; warna tidak bisa diedit satu per satu), `update_contact` (WhatsApp, telepon, email, Instagram, pesan pembuka WhatsApp; lihat dengan `get_contact`).
 2. **Bangun**: `build_site` (semua halaman, sitemap, llms.txt; cek link rusak).
 3. **Cek**: `review_changes` (file yang berubah). Untuk melihat tampilannya, jalankan `npm start` dan buka http://localhost:3000.
 4. **Terbit**: `publish` dengan `confirm: true`: commit + push ke GitHub, lalu Railway men-deploy ulang otomatis.
@@ -53,6 +54,8 @@ Lalu restart Claude Desktop. Syarat: Node 20+ dan git terpasang, dan folder ini 
 | `content/home.json` | hero, tiga program, FAQ orang tua |
 | `content/testimonial-videos.json` | video di barisan testimoni beranda |
 | `content/alumni-2018.json` | 38 lulusan 2018 di halaman testimoni |
+| `content/contact.json` | WhatsApp, telepon, email, Instagram, pesan pembuka WhatsApp |
+| `content/theme.json` + `content/themes/*.json` | tema warna aktif dan isi tiap tema |
 
 ## MCP remote (Grok, Muse, dan bot AI lain)
 

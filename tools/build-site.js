@@ -12,7 +12,9 @@ const HOME = readJson('content/home.json');
 const VIDEOS = readJson('content/testimonial-videos.json');
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
 let versionAssets = (h) => h;
-const write = (f, s) => { fs.mkdirSync(path.dirname(path.join(root, f)), { recursive: true }); fs.writeFileSync(path.join(root, f), f.endsWith('.html') ? versionAssets(s) : s); };
+const CONTACT = require('./contact');
+const CONTACT_APPLY = (f, s) => (/\.(html|txt)$/.test(f) ? CONTACT.apply(s) : s);   // content/contact.json everywhere
+const write = (f, s) => { fs.mkdirSync(path.dirname(path.join(root, f)), { recursive: true }); fs.writeFileSync(path.join(root, f), CONTACT_APPLY(f, f.endsWith('.html') ? versionAssets(s) : s)); };
 const strip = (h) => h.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 const idDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
@@ -21,6 +23,16 @@ const BLOG_URL = `${S.SITE}/blog/`;
 const ARROW = '<svg class="arr" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h7.5M6.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 let idx = read('index.html');
+
+/* ---------- contact (content/contact.json) ---------- */
+{
+  const errs = CONTACT.validate(CONTACT.load());
+  if (errs.length) throw new Error('content/contact.json tidak valid: ' + errs.join(' '));
+  const appJs = read('app.js');
+  const a = appJs.indexOf('/* CONTACT:START */'), b = appJs.indexOf('/* CONTACT:END */') + '/* CONTACT:END */'.length;
+  if (a < 0 || b < a) throw new Error('CONTACT markers missing in app.js');
+  write('app.js', appJs.slice(0, a) + CONTACT.appJsBlock(CONTACT.load()) + appJs.slice(b));
+}
 
 /* ---------- theme (content/theme.json -> content/themes/<name>.json) ---------- */
 const TH = require('./themes');

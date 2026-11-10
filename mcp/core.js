@@ -18,6 +18,7 @@ const FILES = {
 const load = (k) => JSON.parse(fs.readFileSync(path.join(ROOT, FILES[k]), 'utf8'));
 const save = (k, data) => fs.writeFileSync(path.join(ROOT, FILES[k]), JSON.stringify(data, null, 2) + '\n');
 const themes = () => require(path.join(ROOT, 'tools', 'themes.js'));   // tema warna: content/themes/*.json
+const contact = () => require(path.join(ROOT, 'tools', 'contact.js')); // kontak: content/contact.json
 const strip = (h) => String(h).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 const today = () => new Date().toISOString().slice(0, 10);
 const git = (...args) => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
@@ -73,7 +74,7 @@ const TOOLS = {
         tema_aktif: themes().active(),
         tema_tersedia: themes().list(),
         perubahan_belum_terbit: status || 'tidak ada',
-        alur: 'edit (save_post, update_hero, set_homepage_faq, update_program, save_testimonial_video, update_alumni, set_theme) → build_site → review_changes → publish (confirm: true)',
+        alur: 'edit (save_post, update_hero, set_homepage_faq, update_program, save_testimonial_video, update_alumni, set_theme, update_contact) → build_site → review_changes → publish (confirm: true)',
       };
     },
   },
@@ -269,6 +270,47 @@ const TOOLS = {
       for (const k of ['name', 'major', 'school', 'quote']) if (a[k] !== undefined) p[k] = a[k].trim();
       save('alumni', list);
       return { lulusan: { slug: p.slug, name: p.name, major: p.major, school: p.school }, langkah_berikut: 'build_site' };
+    },
+  },
+
+  get_contact: {
+    description: 'Lihat kontak yang dipakai di semua tombol CTA, footer, formulir, dan data Google: WhatsApp, telepon, email, Instagram, dan pesan pembuka WhatsApp.',
+    schema: { type: 'object', properties: {} },
+    run() {
+      const C = contact(), c = C.load();
+      return { ...c, telepon_tampil: C.displayPhone(c.phone), status_tombol: c.whatsapp ? 'Chat admin (membuka WhatsApp)' : 'Telepon admin (WhatsApp belum diisi)' };
+    },
+  },
+
+  update_contact: {
+    description: 'Ubah kontak admin di SEMUA tempat sekaligus (tombol CTA, footer, formulir, FAQ, artikel, schema Google, llms.txt). Hanya field yang dikirim yang diubah. Mengisi whatsapp membuat semua tombol jadi "Chat admin" yang membuka WhatsApp; kosongkan ("") untuk kembali ke telepon. Jangan mengarang nomor; pakai yang diberikan pengguna.',
+    schema: {
+      type: 'object',
+      properties: {
+        whatsapp: { type: 'string', description: 'format 62xxxxxxxxxx tanpa + atau spasi, atau "" untuk menonaktifkan' },
+        phone: { type: 'string', description: 'telepon kantor, angka saja diawali 0, mis. 02122733744' },
+        email: { type: 'string' },
+        instagram: { type: 'string', description: 'nama akun tanpa @' },
+        wa_greeting: { type: 'string', description: 'pesan pembuka WhatsApp untuk tombol umum' },
+      },
+    },
+    run(a) {
+      const C = contact();
+      const cur = C.load();
+      const norm = (s) => String(s).trim();
+      const next = { ...cur };
+      if (a.whatsapp !== undefined) next.whatsapp = norm(a.whatsapp).replace(/[\s+-]/g, '').replace(/^0/, '62');
+      if (a.phone !== undefined) next.phone = norm(a.phone).replace(/[\s-]/g, '').replace(/^\+?62/, '0');
+      if (a.email !== undefined) next.email = norm(a.email).toLowerCase();
+      if (a.instagram !== undefined) next.instagram = norm(a.instagram).replace(/^@/, '');
+      if (a.wa_greeting !== undefined) next.waGreeting = norm(a.wa_greeting);
+      const errs = C.validate(next);
+      need(!errs.length, errs.join(' '));
+      fs.writeFileSync(C.FILE, JSON.stringify(next, null, 2) + '\n');
+      // keep the content sources in step (article bodies and FAQ may mention the phone or email)
+      const walk = (v) => (typeof v === 'string' ? C.apply(v, next) : Array.isArray(v) ? v.map(walk) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)])) : v);
+      for (const k of ['posts', 'home']) save(k, walk(load(k)));
+      return { kontak: next, tombol: next.whatsapp ? 'Chat admin → WhatsApp wa.me/' + next.whatsapp : 'Telepon admin → tel:' + next.phone, langkah_berikut: 'build_site' };
     },
   },
 

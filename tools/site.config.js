@@ -1,6 +1,8 @@
 /* Data situs bersama untuk SEO, schema.org, sitemap, dan llms.txt.
    PENTING: ganti SITE kalau domain resminya berbeda, lalu jalankan ulang: node tools/build-site.js */
 const SITE = 'https://bimbelinfinity.com';
+const CONTACT = require('./contact');
+const C = CONTACT.load();   // content/contact.json
 
 const ORG = {
   name: 'Bimbel Infinity',
@@ -9,9 +11,9 @@ const ORG = {
   description: 'Bimbel persiapan seleksi PKN STAN di Bintaro, Tangerang Selatan. Didirikan mahasiswa PKN STAN pada 17 April 2013; tentor mahasiswa dan alumni PKN STAN; gedung kelas tepat di depan kampus PKN STAN.',
   foundingDate: '2013-04-17',
   founder: 'Riandi Ahmad',
-  telephone: '+62-21-22733744',
-  email: 'bimbelinfinityid@gmail.com',
-  instagram: 'https://www.instagram.com/bimbelinfinity/',
+  telephone: CONTACT.intl(C.phone),
+  email: C.email,
+  instagram: `https://www.instagram.com/${C.instagram}/`,
   address: {
     streetAddress: 'Jl. Porselin No. 11 Blok E6, Perumahan Pondok Jaya, Bintaro Sektor 3A',
     addressLocality: 'Tangerang Selatan',

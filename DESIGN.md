@@ -94,3 +94,7 @@ Two complete colour themes; the MCP can only switch between them (`list_themes`,
 - The build refuses a theme when any text/background pair the design uses fails WCAG AA (`tools/themes.js`, 19 pairs).
 - CSS uses role tokens only (`--primary`, `--accent`, `--highlight`, `--curve-*`, `--shade` for dark overlays, `--ph-text`); alphas are `color-mix()` on those tokens. No brand hex values outside the THEME block.
 - The blue logo was cut from the guideline image (`assets/brand/themes/biru/brand-guideline.webp`); replace it with the original file when available. Share images are rendered from `tools/og-image.html?t=<name>`.
+
+## Contact
+
+One source, `content/contact.json` (WhatsApp, phone, email, Instagram, WhatsApp greeting), edited through the MCP (`get_contact`, `update_contact`). The build writes the `CONTACT` block in `app.js` and rewrites every `tel:` link, displayed phone number, email, Instagram link/handle and the schema.org `telephone` in all generated pages and text files (`tools/contact.js`). With `whatsapp` empty every `.js-wa` button reads "Telepon admin" and dials; with a number it reads "Chat admin" and opens `wa.me` with that button's own message.

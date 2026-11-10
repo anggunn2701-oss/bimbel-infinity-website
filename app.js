@@ -6,9 +6,14 @@
 
 /* Nomor WhatsApp admin, format 62xxxxxxxxxx tanpa + atau spasi.
    Selama kosong, tombol "Chat admin" jatuh ke telepon kantor. */
+/* CONTACT:START */
+/* dibuat dari content/contact.json oleh tools/build-site.js; ubah lewat MCP (update_contact), bukan di sini.
+   Selama WA_NUMBER kosong, tombol "Chat admin" otomatis menjadi "Telepon admin". */
 const WA_NUMBER = "";
 const PHONE = "02122733744";
 const EMAIL = "bimbelinfinityid@gmail.com";
+const DEFAULT_WA_MSG = "Halo admin Infinity, saya mau tanya program persiapan PKN STAN.";
+/* CONTACT:END */
 
 /* Video. Isi `cloudinaryUrl` dengan link MP4 yang sudah dikompres (idealnya < 15 MB).
    Selama kosong, dipakai file lokal mentah yang sangat besar (90–157 MB). */
@@ -263,7 +268,6 @@ const BRANCHES_DATA = [
 ];
 
 /* ---------- WhatsApp ---------- */
-const DEFAULT_WA_MSG = "Halo admin Infinity, saya mau tanya program persiapan PKN STAN.";
 function waLink(msg) {
   return WA_NUMBER ? `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}` : `tel:${PHONE}`;
 }
