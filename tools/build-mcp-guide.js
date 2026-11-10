@@ -89,7 +89,7 @@ Aturan:
 9. Jangan pernah menampilkan, mengulang, atau menyimpan token akses di jawaban.`;
 
 const banner = VARIANT === 'personal'
-  ? `<div class="secret"><b>RAHASIA · ARSIP PRIBADI</b>Dokumen ini berisi password akun master dan token akses. Simpan hanya di perangkat sendiri. Jangan diunggah ke asisten AI, email, chat, atau Google Drive bersama. Untuk asisten AI, pakai versi "untuk asisten AI" (tanpa password).</div>`
+  ? `<div class="secret"><b>RAHASIA · DOKUMEN PRIBADI</b>Berisi password email master dan token MCP. Simpan di perangkat sendiri. Boleh diberikan ke asisten AI pribadi Anda (Muse, Grok, dll.), tapi jangan dikirim ke grup, email, atau orang lain.</div>`
   : VARIANT === 'ai'
     ? `<div class="secret amber"><b>BERISI TOKEN AKSES</b>Dokumen ini berisi token yang bisa mengubah isi website. Berikan hanya ke asisten AI milik Anda sendiri. Tidak berisi password.</div>`
     : '';
@@ -164,7 +164,7 @@ const html = `<!doctype html>
   <div class="cover-title">Panduan MCP <em>Infinity Konten</em></div>
   <p class="lead">Cara mengurus website bimbelinfinity.com lewat asisten AI (Muse, Grok, ChatGPT, Claude): menulis artikel, mengganti tema warna, kontak, dan SEO, tanpa perlu paham kode.</p>
   ${banner}
-  <div class="meta">Versi ${today} · ${N} tools · ${VARIANT === 'personal' ? 'Arsip pribadi' : VARIANT === 'ai' ? 'Versi untuk asisten AI' : 'Versi tanpa rahasia'}</div>
+  <div class="meta">Versi ${today} · ${N} tools · ${VARIANT === 'personal' ? 'Dokumen lengkap' : VARIANT === 'ai' ? 'Versi untuk asisten AI' : 'Versi tanpa rahasia'}</div>
   <svg viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true"><path d="M600 0C470 60 430 220 250 400H340C480 250 520 120 600 96Z" fill="#FCF7EB"/><path d="M600 96C520 120 480 250 340 400H600Z" fill="#FF5A00"/></svg>
 </div>
 
@@ -295,7 +295,7 @@ const html = `<!doctype html>
     <li>Buka <b>Settings</b> → <b>Integrations / Tools / MCP</b> → <b>Add MCP server</b>.</li>
     <li>Nama: <code>infinity-konten</code>. Alamat: <code>${MCP_URL}</code>. Jenis koneksi: <b>HTTP / Streamable HTTP</b>.</li>
     <li>Kalau ada kolom token atau "Bearer": isi token MCP. Kalau tidak ada kolom itu, pakai alamat dengan token (bab 4).</li>
-    <li>Tempel dokumen ini (versi untuk asisten AI) atau teks di bab 13 ke instruksi asisten.</li>
+    <li>Unggah dokumen ini ke asisten, atau tempel teks di bab 13 ke instruksi asisten.</li>
     <li>Tes: ketik <i>"Tampilkan daftar artikel blog."</i></li>
   </ol>
   <h3>Grok</h3>
