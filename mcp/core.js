@@ -1,5 +1,6 @@
 /* Core of the MCP server "Infinity Konten": tools + JSON-RPC dispatch, shared by
-   mcp/server.js (stdio, for Claude Code / Claude Desktop) and mcp/http.js (remote HTTP, for Grok and other bots).
+   mcp/server.js (stdio, for Claude Code / Claude Desktop) and the remote HTTP server in repo
+   anggunn2701-oss/infinity-konten-mcp (for Grok and other bots), which loads this file from a clone.
    Works on the site folder in INFINITY_SITE_ROOT (default: this repository). */
 const fs = require('fs');
 const path = require('path');

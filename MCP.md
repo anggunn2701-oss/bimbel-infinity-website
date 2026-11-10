@@ -55,37 +55,6 @@ Lalu restart Claude Desktop. Syarat: Node 20+ dan git terpasang, dan folder ini 
 
 ## MCP remote (Grok, Muse, dan bot AI lain)
 
-Bot yang berjalan di server lain tidak bisa menjalankan `mcp/server.js` di komputer ini. Untuk mereka ada `mcp/http.js`: MCP lewat HTTPS (Streamable HTTP, balasan JSON) yang jalan sebagai **service kedua di Railway**. Ia meng-clone repo GitHub, mengedit `content/*.json`, membangun situs, dan `publish` mem-push ke GitHub; service website lalu deploy ulang sendiri.
+Bot yang berjalan di server lain tidak bisa menjalankan `mcp/server.js` di komputer ini. Untuk mereka ada repo terpisah **[anggunn2701-oss/infinity-konten-mcp](https://github.com/anggunn2701-oss/infinity-konten-mcp)** (private): MCP lewat HTTPS yang dideploy sebagai service sendiri di Railway. Saat start ia meng-clone repo website ini dan memakai tools dari `mcp/core.js` di sini, jadi tools cukup dirawat di satu tempat (restart service MCP setelah mengubah `mcp/core.js`).
 
-### Membuat service di Railway
-
-1. **Token GitHub** (sekali): GitHub → Settings → Developer settings → Personal access tokens → **Fine-grained token**.
-   - Repository access: *Only select repositories* → `bimbel-infinity-website`.
-   - Permissions → Repository → **Contents: Read and write** (yang lain biarkan).
-   - Simpan tokennya; jangan dibagikan.
-2. **Token MCP** (sekali): string acak panjang, misalnya hasil `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Ini "kata sandi" untuk bot.
-3. **Railway** → project website → **+ New** → **GitHub Repo** → `bimbel-infinity-website` (service kedua dari repo yang sama).
-4. Di service baru → **Settings**:
-   - **Config-as-code / Railway config file**: `mcp/railway.json` (membangun `mcp/Dockerfile`, start `node mcp/http.js`, health check `/healthz`, hanya deploy ulang saat folder `mcp/` berubah).
-   - **Networking → Generate Domain** (atau custom domain `mcp.bimbelinfinity.com` + CNAME di Cloudflare, DNS only).
-5. **Variables**: `MCP_TOKEN` = token MCP, `GITHUB_TOKEN` = token GitHub. Opsional: `GITHUB_REPO` (default `anggunn2701-oss/bimbel-infinity-website`), `GIT_BRANCH` (default `main`).
-6. Deploy, lalu cek `https://<domain-mcp>/healthz` → `{"ok":true,"mode":"github"}`.
-
-### Menyambungkan bot
-
-- **Server URL**: `https://<domain-mcp>/mcp`
-- **Header**: `Authorization: Bearer <MCP_TOKEN>`
-- Kalau bot hanya menerima URL tanpa header: pakai `https://<domain-mcp>/mcp/<MCP_TOKEN>` (rahasiakan URL ini seperti kata sandi).
-- Transport: **Streamable HTTP**. Tidak perlu SSE.
-
-Contoh tes dari terminal:
-```bash
-curl -s https://<domain-mcp>/mcp -H "Authorization: Bearer <MCP_TOKEN>" -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
-```
-
-### Catatan keamanan
-
-- Siapa pun yang memegang `MCP_TOKEN` bisa mengubah dan menerbitkan isi website. Ganti token di Railway kapan saja (bot lama otomatis terputus).
-- Token GitHub hanya untuk repo ini dan hanya izin Contents; tidak pernah ditulis ke URL, file, atau log.
-- Draf yang belum di-publish tersimpan di container dan hilang kalau service restart; terbitkan atau ulangi.
-- Setiap publish adalah commit biasa di GitHub, jadi bisa dibatalkan (revert) dari riwayat commit.
+Langkah deploy, variabel (`MCP_TOKEN`, `GITHUB_TOKEN`), dan cara menyambungkan bot ada di README repo tersebut.

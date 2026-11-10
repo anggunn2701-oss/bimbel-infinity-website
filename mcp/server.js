@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* MCP server "Infinity Konten", stdio transport (Claude Code via .mcp.json, Claude Desktop).
-   For bots that connect over the internet (Grok and others) use mcp/http.js. */
+   For bots that connect over the internet (Grok and others): repo anggunn2701-oss/infinity-konten-mcp. */
 const { handleMessage } = require('./core');
 
 const send = (msg) => process.stdout.write(JSON.stringify(msg) + '
