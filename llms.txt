@@ -10,12 +10,12 @@ Fakta utama:
 - Kontak: telepon 021-22733744, email bimbelinfinityid@gmail.com, Instagram @bimbelinfinity.
 
 ## Halaman utama
-- [Beranda](https://www.bimbelinfinity.com/): program, cara mengajar, video testimoni, FAQ orang tua, lokasi, dan sejarah.
-- [Testimoni alumni 2018](https://www.bimbelinfinity.com/testimoni.html): 38 lulusan dengan jurusan, asal sekolah, dan testimoni.
-- [Teks lengkap untuk AI](https://www.bimbelinfinity.com/llms-full.txt): seluruh fakta dan artikel dalam teks biasa.
+- [Beranda](https://bimbelinfinity.com/): program, cara mengajar, video testimoni, FAQ orang tua, lokasi, dan sejarah.
+- [Testimoni alumni 2018](https://bimbelinfinity.com/testimoni.html): 38 lulusan dengan jurusan, asal sekolah, dan testimoni.
+- [Teks lengkap untuk AI](https://bimbelinfinity.com/llms-full.txt): seluruh fakta dan artikel dalam teks biasa.
 
 ## Blog
-- [Apa itu SKD PKN STAN? Penjelasan TWK, TIU, dan TKP untuk orang tua](https://www.bimbelinfinity.com/blog/apa-itu-skd-pkn-stan.html): SKD adalah tes berbasis komputer dalam seleksi PKN STAN. Isinya tiga tes: TWK, TIU, dan TKP. Begini cara kerjanya, cara penilaiannya, dan cara menyiapkannya.
-- [Reguler, Karantina, atau cabang daerah: cara memilih program persiapan PKN STAN](https://www.bimbelinfinity.com/blog/memilih-program-bimbel-pkn-stan.html): Tiga program Bimbel Infinity memakai modul dan tentor yang sama. Bedanya ada di intensitas dan tempat belajar. Panduan singkat untuk orang tua memilih yang paling pas.
-- [38 siswa Infinity lulus PKN STAN 2018: siapa mereka dan apa kata mereka](https://www.bimbelinfinity.com/blog/cerita-38-lulusan-infinity-2018.html): Pada seleksi 2018, 147.702 orang mendaftar PKN STAN untuk 7.301 kursi. 38 di antaranya siswa Bimbel Infinity dari Depok, Jember, Lombok, dan Sukabumi.
-- [Perjalanan Bimbel Infinity: dari satu gedung di Pondok Aren, 2013](https://www.bimbelinfinity.com/blog/perjalanan-bimbel-infinity-2013-2018.html): Bimbel Infinity didirikan mahasiswa PKN STAN pada 17 April 2013 di Pondok Aren, lalu membuka kelas di 14 kota. Ini catatan perjalanannya, tahun demi tahun.
+- [Apa itu SKD PKN STAN? Penjelasan TWK, TIU, dan TKP untuk orang tua](https://bimbelinfinity.com/blog/apa-itu-skd-pkn-stan.html): SKD adalah tes berbasis komputer dalam seleksi PKN STAN. Isinya tiga tes: TWK, TIU, dan TKP. Begini cara kerjanya, cara penilaiannya, dan cara menyiapkannya.
+- [Reguler, Karantina, atau cabang daerah: cara memilih program persiapan PKN STAN](https://bimbelinfinity.com/blog/memilih-program-bimbel-pkn-stan.html): Tiga program Bimbel Infinity memakai modul dan tentor yang sama. Bedanya ada di intensitas dan tempat belajar. Panduan singkat untuk orang tua memilih yang paling pas.
+- [38 siswa Infinity lulus PKN STAN 2018: siapa mereka dan apa kata mereka](https://bimbelinfinity.com/blog/cerita-38-lulusan-infinity-2018.html): Pada seleksi 2018, 147.702 orang mendaftar PKN STAN untuk 7.301 kursi. 38 di antaranya siswa Bimbel Infinity dari Depok, Jember, Lombok, dan Sukabumi.
+- [Perjalanan Bimbel Infinity: dari satu gedung di Pondok Aren, 2013](https://bimbelinfinity.com/blog/perjalanan-bimbel-infinity-2013-2018.html): Bimbel Infinity didirikan mahasiswa PKN STAN pada 17 April 2013 di Pondok Aren, lalu membuka kelas di 14 kota. Ini catatan perjalanannya, tahun demi tahun.

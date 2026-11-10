@@ -28,14 +28,14 @@ File yang di-upload mengikuti `.railwayignore` (sekitar 8 MB; video mentah 525 M
 
 ## Domain
 
-1. Railway → Settings → Networking → Custom Domain: tambahkan `www.bimbelinfinity.com` dan `bimbelinfinity.com`.
+1. Railway → Settings → Networking → Custom Domain: tambahkan `bimbelinfinity.com` (utama) dan `www.bimbelinfinity.com`.
 2. Isi DNS di registrar domain sesuai CNAME/record yang diberikan Railway.
-3. `server.js` mengarahkan `bimbelinfinity.com` dan `http://` ke `https://www.bimbelinfinity.com` (301), sesuai canonical di semua halaman.
+3. `server.js` mengarahkan `www.bimbelinfinity.com` dan `http://` ke `https://bimbelinfinity.com` (301), sesuai canonical di semua halaman.
 
 ## Setelah online
 
-- Google Search Console dan Bing Webmaster Tools: verifikasi domain, kirim `https://www.bimbelinfinity.com/sitemap.xml`.
-- Cek `https://www.bimbelinfinity.com/healthz` (harus `ok`), `/robots.txt`, `/llms.txt`.
+- Google Search Console dan Bing Webmaster Tools: verifikasi domain, kirim `https://bimbelinfinity.com/sitemap.xml`.
+- Cek `https://bimbelinfinity.com/healthz` (harus `ok`), `/robots.txt`, `/llms.txt`.
 
 ## Yang dilakukan server
 

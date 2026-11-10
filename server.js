@@ -7,8 +7,8 @@ const zlib = require("zlib");
 
 const PORT = Number(process.env.PORT) || 3000;
 const ROOT = __dirname;
-const CANONICAL_HOST = "www.bimbelinfinity.com";
-const APEX_HOST = "bimbelinfinity.com";
+const CANONICAL_HOST = "bimbelinfinity.com";        // primary address, no www
+const ALIAS_HOST = "www.bimbelinfinity.com";        // redirected to the primary
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -118,10 +118,10 @@ const server = http.createServer((req, res) => {
   // Health check for Railway
   if (req.url === "/healthz") return send(req, res, 200, "ok");
 
-  // One canonical address: bimbelinfinity.com -> www, http -> https (custom domain only)
+  // One canonical address: www -> bimbelinfinity.com, http -> https (custom domain only)
   const host = (req.headers.host || "").toLowerCase().split(":")[0];
   const proto = req.headers["x-forwarded-proto"];
-  if (host === APEX_HOST || (host === CANONICAL_HOST && proto === "http")) {
+  if (host === ALIAS_HOST || (host === CANONICAL_HOST && proto === "http")) {
     res.writeHead(301, { Location: `https://${CANONICAL_HOST}${req.url}` });
     return res.end();
   }

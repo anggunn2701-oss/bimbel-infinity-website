@@ -1,6 +1,6 @@
 /* Data situs bersama untuk SEO, schema.org, sitemap, dan llms.txt.
    PENTING: ganti SITE kalau domain resminya berbeda, lalu jalankan ulang: node tools/build-site.js */
-const SITE = 'https://www.bimbelinfinity.com';
+const SITE = 'https://bimbelinfinity.com';
 
 const ORG = {
   name: 'Bimbel Infinity',

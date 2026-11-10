@@ -9,7 +9,7 @@ const { execFileSync } = require('child_process');
 const { markdownToHtml } = require('./markdown');
 
 const ROOT = path.resolve(__dirname, '..');
-const SITE = 'https://www.bimbelinfinity.com';
+const SITE = 'https://bimbelinfinity.com';
 const FILES = {
   posts: 'content/blog-posts.json',
   home: 'content/home.json',
