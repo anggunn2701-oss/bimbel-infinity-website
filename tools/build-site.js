@@ -5,7 +5,11 @@ const fs = require('fs');
 const path = require('path');
 const root = path.resolve(__dirname, '..');
 const S = require('./site.config');
-const POSTS = require('../content/blog-posts.js');
+const R = require('./render');
+const readJson = (f) => JSON.parse(fs.readFileSync(path.join(root, f), 'utf8'));
+const POSTS = readJson('content/blog-posts.json');
+const HOME = readJson('content/home.json');
+const VIDEOS = readJson('content/testimonial-videos.json');
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
 const write = (f, s) => { fs.mkdirSync(path.dirname(path.join(root, f)), { recursive: true }); fs.writeFileSync(path.join(root, f), s); };
 const strip = (h) => h.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
@@ -16,6 +20,13 @@ const BLOG_URL = `${S.SITE}/blog/`;
 const ARROW = '<svg class="arr" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h7.5M6.5 3l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 let idx = read('index.html');
+
+/* ---------- 0. data-driven homepage parts (content/home.json, content/testimonial-videos.json) ---------- */
+idx = R.between(idx, 'HERO', R.hero(HOME.hero));
+idx = R.between(idx, 'FAQ', R.faq(HOME.faq));
+idx = R.between(idx, 'PROGRAMS', R.programs(HOME.programs));
+idx = R.between(idx, 'TESTI_TILES', R.testiTiles(VIDEOS));
+write('app.js', R.between(read('app.js'), 'TESTI', R.testiData(VIDEOS), 'js'));
 
 /* ---------- 1. homepage: SEO markers (one-time migration), nav + footer links, blog teaser ---------- */
 if (!idx.includes('<!-- SEO:START')) {
@@ -50,11 +61,7 @@ else idx = idx.replace('    <!-- ================= CLOSING', `    ${teaser}\n\n 
 // homepage FAQ -> FAQPage (skip answers that still hold placeholders)
 const homeFaq = [...idx.matchAll(/<details><summary>([\s\S]*?)<\/summary><p>([\s\S]*?)<\/p><\/details>/g)]
   .filter((m) => !m[2].includes('class="ph"')).map((m) => [strip(m[1]), strip(m[2])]);
-const programs = [
-  ['Reguler Bintaro', 'Kelas diskusi kecil tatap muka di gedung kelas Jl. Pisok I, di depan kampus PKN STAN; untuk siswa di sekitar Bintaro dan Tangerang Selatan.', 'onsite'],
-  ['Karantina', 'Belajar penuh waktu dan menginap dekat kampus PKN STAN menjelang SKD, dengan tryout rutin dan evaluasi skor; dikelola bersama karantinastan.com.', 'onsite'],
-  ['Cabang daerah', 'Kelas periodik tatap muka di kota cabang Infinity untuk siswa di luar Jabodetabek, dengan Try Out Akbar serentak dengan Bintaro.', 'onsite'],
-];
+const programs = HOME.programs.map((p) => [p.name, strip(`${p.for} ${p.place}. ${p.format}. ${p.feature.replace(/<span class="ph">[\s\S]*?<\/span>/g, '')}`), 'onsite']);
 const home = `${S.SITE}/`;
 idx = S.replaceSeo(idx, S.seoHead({
   title: 'Bimbel Infinity · Persiapan PKN STAN di Bintaro sejak 2013',

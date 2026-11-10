@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "infinity-konten": {
+      "command": "node",
+      "args": ["mcp/server.js"]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "title": "Persiapan PKN STAN, diajar",
+    "highlight": "mahasiswanya.",
+    "lead": "Tentornya mahasiswa dan alumni PKN STAN. Kelasnya di Bintaro, tepat di depan kampus yang kamu tuju. Berjalan sejak 17 April 2013."
+  },
+  "programs": [
+    {
+      "name": "Reguler Bintaro",
+      "for": "Untuk siswa yang tinggal di sekitar Bintaro dan Tangerang Selatan.",
+      "place": "Gedung kelas Jl. Pisok I, di depan kampus PKN STAN",
+      "format": "Kelas diskusi kecil, tatap muka, pulang setiap hari",
+      "feature": "Bedah soal bersama tentor, kelas motivasi berkala",
+      "message": "Halo konsultan Infinity, saya mau tanya biaya dan jadwal Program Reguler Bintaro."
+    },
+    {
+      "name": "Karantina",
+      "for": "Untuk siswa yang ingin belajar penuh waktu menjelang SKD.",
+      "place": "Dekat kampus PKN STAN",
+      "format": "Penuh waktu dan menginap bersama siswa lain",
+      "feature": "Tryout rutin, evaluasi skor tiap siswa; dikelola bersama karantinastan.com",
+      "message": "Halo konsultan Infinity, saya mau tanya biaya dan jadwal Program Karantina."
+    },
+    {
+      "name": "Cabang daerah",
+      "for": "Untuk siswa di luar Jabodetabek.",
+      "place": "Kota cabang Infinity",
+      "format": "Kelas periodik, tatap muka",
+      "feature": "Try Out Akbar serentak dengan Bintaro <span class=\"ph\">Kelas online? konfirmasi tim</span>",
+      "message": "Halo konsultan Infinity, saya mau tanya apakah ada kelas Infinity di kota saya, beserta biaya dan jadwalnya."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Berapa biayanya?",
+      "a": "Biaya berbeda untuk tiap program, kota, dan lama belajar. Konsultan menjelaskan rinciannya lewat telepon atau formulir, gratis."
+    },
+    {
+      "q": "Siapa yang mengajar?",
+      "a": "Mahasiswa dan alumni PKN STAN. Mereka sudah melewati seleksi yang sama, dan mengajar dengan modul yang dipakai di semua cabang."
+    },
+    {
+      "q": "Apa itu SKD, TWK, TIU, dan TKP?",
+      "a": "SKD (Seleksi Kompetensi Dasar) adalah tes berbasis komputer dalam seleksi PKN STAN. Isinya tiga tes: TWK (Tes Wawasan Kebangsaan), TIU (Tes Intelegensia Umum), dan TKP (Tes Karakteristik Pribadi). Ketiganya dipelajari di semua program Infinity."
+    },
+    {
+      "q": "Apa bedanya Karantina dengan kelas reguler?",
+      "a": "Di kelas reguler, siswa datang ke gedung kelas di Bintaro lalu pulang. Di Karantina, siswa belajar penuh waktu dan menginap dekat kampus PKN STAN menjelang SKD, dengan tryout rutin dan evaluasi skor."
+    },
+    {
+      "q": "Bagaimana dengan garansinya?",
+      "a": "Infinity memberi garansi program. <span class=\"ph\">Tulis syarat garansinya: apa yang dijamin, ketentuan, dan cara mengklaim.</span>"
+    },
+    {
+      "q": "Kapan jadwal kelasnya?",
+      "a": "Jadwal mengikuti jadwal seleksi tahun berjalan dan program yang dipilih. Admin mengirim jadwal terbaru saat konsultasi."
+    },
+    {
+      "q": "Apakah ada kelas di kota saya?",
+      "a": "Infinity pernah membuka kelas di 14 kota; daftarnya ada di bagian Cabang. <span class=\"ph\">Tandai kota yang masih aktif.</span> Tanyakan admin untuk kota Anda."
+    }
+  ]
+}

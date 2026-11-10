@@ -32,7 +32,7 @@ const MIME_TYPES = {
 const COMPRESSIBLE = new Set([".html", ".css", ".js", ".mjs", ".json", ".xml", ".txt", ".svg"]);
 
 /* Never served: tooling, drafts, backups, raw videos, docs and server files. */
-const BLOCKED_DIRS = ["_backup-original", "tools", "content", "concept", "Untuk Website Infinity", "node_modules"];
+const BLOCKED_DIRS = ["_backup-original", "tools", "content", "concept", "mcp", "Untuk Website Infinity", "node_modules"];
 const BLOCKED_FILES = new Set(["server.js", "package.json", "package-lock.json", "railway.json", "nixpacks.toml"]);
 function isBlocked(rel) {
   const parts = rel.split("/").filter(Boolean);

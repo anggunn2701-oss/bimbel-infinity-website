@@ -20,3 +20,6 @@ _backup-original/
 concept/
 .impeccable/
 .claude/
+
+# Not needed at runtime
+mcp/

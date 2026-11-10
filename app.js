@@ -42,43 +42,46 @@ const CLOUDINARY_CONFIG = {
    2–9 MB, dari file asli 23–73 MB. Preview tanpa suara di rail ada di index.html. */
 const CLD = "https://res.cloudinary.com/jnye0bk5/video/upload";
 const CLD_FX = "e_contrast:25/e_saturation:8/e_brightness:5";
+/* TESTI:START */
+/* dibuat dari content/testimonial-videos.json oleh tools/build-site.js */
 const TESTI_VIDEOS = [
   {
-    key: "tElrandi",
-    name: "Elrandi",
-    id: "v1794300326/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Elrandi"
+    "key": "tElrandi",
+    "name": "Elrandi",
+    "id": "v1794300326/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Elrandi"
   },
   {
-    key: "tFairuz",
-    name: "Fairuz",
-    id: "v1794300317/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Fairuz"
+    "key": "tFairuz",
+    "name": "Fairuz",
+    "id": "v1794300317/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Fairuz"
   },
   {
-    key: "tMoses",
-    name: "Moses",
-    id: "v1794300334/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Moses"
+    "key": "tMoses",
+    "name": "Moses",
+    "id": "v1794300334/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Moses"
   },
   {
-    key: "tGinus",
-    name: "Ginus",
-    id: "v1794300197/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Ginus"
+    "key": "tGinus",
+    "name": "Ginus",
+    "id": "v1794300197/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Ginus"
   },
   {
-    key: "tMifta",
-    name: "Mifta",
-    id: "v1794300251/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Mifta"
+    "key": "tMifta",
+    "name": "Mifta",
+    "id": "v1794300251/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Mifta"
   },
   {
-    key: "tArdi",
-    name: "Ardi Triantama",
-    id: "v1794300315/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Ardi_Triantama"
+    "key": "tArdi",
+    "name": "Ardi Triantama",
+    "id": "v1794300315/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Ardi_Triantama"
   },
   {
-    key: "tAde",
-    name: "Ade Souza",
-    id: "v1794300247/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Ade_Souza"
+    "key": "tAde",
+    "name": "Ade Souza",
+    "id": "v1794300247/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Ade_Souza"
   }
 ];
+/* TESTI:END */
 TESTI_VIDEOS.forEach((t) => {
   CLOUDINARY_CONFIG.videos[t.key] = {
     title: "Testimoni " + t.name,

@@ -1,0 +1,51 @@
+[
+  {
+    "key": "tElrandi",
+    "name": "Elrandi",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300326/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Elrandi",
+    "faceX": 305
+  },
+  {
+    "key": "tFairuz",
+    "name": "Fairuz",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300317/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Fairuz",
+    "faceX": 318
+  },
+  {
+    "key": "tMoses",
+    "name": "Moses",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300334/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Moses",
+    "faceX": 241
+  },
+  {
+    "key": "tGinus",
+    "name": "Ginus",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300197/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Ginus",
+    "faceX": 344
+  },
+  {
+    "key": "tMifta",
+    "name": "Mifta",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300251/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Mifta",
+    "faceX": 395
+  },
+  {
+    "key": "tArdi",
+    "name": "Ardi Triantama",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300315/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Ardi_Triantama",
+    "faceX": 420
+  },
+  {
+    "key": "tAde",
+    "name": "Ade Souza",
+    "caption": "Siswa Bimbel Infinity",
+    "cloudinaryId": "v1794300247/Bimbel_STAN_Terbaik_-_Bimbel_Infinity_-Testimoni_Siswa_Ade_Souza",
+    "faceX": 433
+  }
+]
