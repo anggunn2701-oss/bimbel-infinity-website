@@ -10,6 +10,7 @@ const readJson = (f) => JSON.parse(fs.readFileSync(path.join(root, f), 'utf8'));
 const POSTS = readJson('content/blog-posts.json');
 const HOME = readJson('content/home.json');
 const VIDEOS = readJson('content/testimonial-videos.json');
+const SEOCFG = readJson('content/seo.json');   // judul + deskripsi per halaman, IndexNow key
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
 let versionAssets = (h) => h;
 const CONTACT = require('./contact');
@@ -99,12 +100,12 @@ const homeFaq = [...idx.matchAll(/<details><summary>([\s\S]*?)<\/summary><p>([\s
 const programs = HOME.programs.map((p) => [p.name, strip(`${p.for} ${p.place}. ${p.format}. ${p.feature.replace(/<span class="ph">[\s\S]*?<\/span>/g, '')}`), 'onsite']);
 const home = `${S.SITE}/`;
 idx = S.replaceSeo(idx, S.seoHead({
-  title: 'Bimbel Infinity · Persiapan PKN STAN di Bintaro sejak 2013',
-  description: 'Bimbel persiapan PKN STAN di Bintaro, Tangerang Selatan. Didirikan mahasiswa PKN STAN pada 17 April 2013; tentor mahasiswa dan alumni PKN STAN; kelas reguler, karantina, dan cabang daerah.',
+  title: SEOCFG.pages.home.title,
+  description: SEOCFG.pages.home.description,
   url: home,
   graph: [
     S.orgNode(), S.websiteNode(),
-    { '@type': 'WebPage', '@id': home, url: home, name: 'Bimbel Infinity · Persiapan PKN STAN di Bintaro sejak 2013', inLanguage: 'id-ID',
+    { '@type': 'WebPage', '@id': home, url: home, name: SEOCFG.pages.home.title, inLanguage: 'id-ID',
       isPartOf: { '@id': `${S.SITE}/#website` }, about: { '@id': `${S.SITE}/#organization` }, primaryImageOfPage: S.OG_IMAGE },
     ...programs.map(([name, description, mode]) => ({ '@type': 'Course', name: `${name} · Persiapan SKD PKN STAN`, description, courseMode: mode,
       inLanguage: 'id-ID', teaches: 'TWK, TIU, dan TKP (SKD PKN STAN)', provider: { '@id': `${S.SITE}/#organization` } })),
@@ -191,7 +192,7 @@ ${others.map((o) => `            <li><a class="post-row" href="./${o.slug}.html"
     </article>
 `;
   write(`blog/${p.slug}.html`, page(S.seoHead({
-    title: `${p.title} · Blog Bimbel Infinity`, description: p.description, url: postUrl(p), type: 'article', published: p.date,
+    title: ((t) => (t + SEOCFG.postTitleSuffix).length <= 65 ? t + SEOCFG.postTitleSuffix : t)(p.seoTitle || p.title), description: p.description, url: postUrl(p), type: 'article', published: p.date,
     graph: [S.orgNode(), S.websiteNode(), blogPostingNode(p),
       S.breadcrumb([['Beranda', `${S.SITE}/`], ['Blog', BLOG_URL], [p.title, postUrl(p)]]), S.faqNode(p.faq, postUrl(p))],
   }), main));
@@ -213,8 +214,8 @@ ${POSTS.map((p) => `          <li><a class="post-row" href="./${p.slug}.html"><s
     </section>
 `;
 write('blog/index.html', page(S.seoHead({
-  title: 'Blog · Panduan persiapan PKN STAN · Bimbel Infinity',
-  description: 'Panduan persiapan seleksi PKN STAN dari Bimbel Infinity: penjelasan SKD (TWK, TIU, TKP), cara memilih program, cerita lulusan, dan perjalanan Infinity sejak 2013.',
+  title: SEOCFG.pages.blog.title,
+  description: SEOCFG.pages.blog.description,
   url: BLOG_URL,
   graph: [S.orgNode(), S.websiteNode(),
     { '@type': 'Blog', '@id': `${BLOG_URL}#blog`, url: BLOG_URL, name: 'Blog Bimbel Infinity', inLanguage: 'id-ID', publisher: { '@id': `${S.SITE}/#organization` },
@@ -222,6 +223,10 @@ write('blog/index.html', page(S.seoHead({
     ...POSTS.map(blogPostingNode),
     S.breadcrumb([['Beranda', `${S.SITE}/`], ['Blog', BLOG_URL]])],
 }), blogMain));
+
+/* ---------- IndexNow key file (https://www.indexnow.org) ---------- */
+for (const f of fs.readdirSync(root)) if (/^[0-9a-f]{32}.txt$/.test(f) && f !== `${SEOCFG.indexnowKey}.txt`) fs.unlinkSync(path.join(root, f));
+fs.writeFileSync(path.join(root, `${SEOCFG.indexnowKey}.txt`), SEOCFG.indexnowKey);
 
 /* ---------- 4. sitemap, robots, llms ---------- */
 const today = new Date().toISOString().slice(0, 10);

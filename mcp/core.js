@@ -74,7 +74,7 @@ const TOOLS = {
         tema_aktif: themes().active(),
         tema_tersedia: themes().list(),
         perubahan_belum_terbit: status || 'tidak ada',
-        alur: 'edit (save_post, update_hero, set_homepage_faq, update_program, save_testimonial_video, update_alumni, set_theme, update_contact) → build_site → review_changes → publish (confirm: true)',
+        alur: 'edit (save_post, update_hero, set_homepage_faq, update_program, save_testimonial_video, update_alumni, set_theme, update_contact, update_page_seo, update_organization) → build_site → seo_audit → review_changes → publish (confirm: true) → ping_index',
       };
     },
   },
@@ -322,6 +322,106 @@ const TOOLS = {
       return { kontak: next, tombol: next.whatsapp ? 'Chat admin → WhatsApp wa.me/' + next.whatsapp : 'Telepon admin → tel:' + next.phone,
         sosmed_di_footer: C.links(next).map((s) => `${s.label} ${s.handle} → ${s.url}`), langkah_berikut: 'build_site' };
     },
+  },
+
+  seo_audit: {
+    description: 'Audit SEO/AEO/GEO seluruh situs yang sudah di-build: panjang judul dan deskripsi, judul ganda, H1, alt gambar, canonical, schema JSON-LD, FAQ dan Jawaban singkat di artikel, jumlah kata, link internal, sitemap, llms.txt, robots.txt, data lembaga untuk SEO lokal. Jalankan build_site dulu. Memberi skor 0–100 dan daftar perbaikan.',
+    schema: { type: 'object', properties: {} },
+    run() { return require(path.join(ROOT, 'tools', 'seo-audit.js')).audit(); },
+  },
+
+  get_page_seo: {
+    description: 'Lihat judul Google (title) dan deskripsi semua halaman: home, testimoni, blog, dan tiap artikel (slug).',
+    schema: { type: 'object', properties: {} },
+    run() {
+      const seo = JSON.parse(fs.readFileSync(path.join(ROOT, 'content/seo.json'), 'utf8'));
+      const pages = Object.entries(seo.pages).map(([k, v]) => ({ halaman: k, title: v.title, panjang_title: v.title.length, description: v.description, panjang_description: v.description.length }));
+      const posts = load('posts').map((p) => ({ halaman: p.slug, title: p.seoTitle || p.title, panjang_title: (p.seoTitle || p.title).length, description: p.description, panjang_description: p.description.length }));
+      return { aturan: 'title ideal ≤ 60 karakter, description 70–160 karakter; akhiran " · Bimbel Infinity" ditambahkan otomatis bila muat', halaman: [...pages, ...posts] };
+    },
+  },
+
+  update_page_seo: {
+    description: 'Ubah judul Google (title) dan/atau meta description sebuah halaman. page = "home", "testimoni", "blog", atau slug artikel. Untuk artikel, title di sini hanya judul di Google; judul di halaman (H1) tetap. Pakai kata kunci yang dicari orang (mis. "bimbel PKN STAN", "SKD PKN STAN"), jangan menjanjikan hal yang tidak ada.',
+    schema: { type: 'object', properties: { page: { type: 'string' }, title: { type: 'string' }, description: { type: 'string' } }, required: ['page'] },
+    run({ page, title, description }) {
+      need(title !== undefined || description !== undefined, 'Kirim title dan/atau description.');
+      if (title !== undefined) need(title.trim().length >= 20 && title.trim().length <= 70, `title ${title.trim().length} karakter; harus 20–70.`);
+      if (description !== undefined) need(description.trim().length >= 70 && description.trim().length <= 170, `description ${description.trim().length} karakter; harus 70–170 (ideal ≤ 160).`);
+      const file = path.join(ROOT, 'content/seo.json');
+      const seo = JSON.parse(fs.readFileSync(file, 'utf8'));
+      if (seo.pages[page]) {
+        if (title !== undefined) seo.pages[page].title = title.trim();
+        if (description !== undefined) seo.pages[page].description = description.trim();
+        fs.writeFileSync(file, JSON.stringify(seo, null, 2) + '\n');
+        return { halaman: page, ...seo.pages[page], langkah_berikut: 'build_site' };
+      }
+      const posts = load('posts');
+      const p = posts.find((x) => x.slug === page);
+      need(p, `Halaman "${page}" tidak ada. Pilihan: ${Object.keys(seo.pages).join(', ')}, atau slug artikel dari list_posts.`);
+      if (title !== undefined) p.seoTitle = title.trim();
+      if (description !== undefined) p.description = description.trim();
+      save('posts', posts);
+      return { halaman: page, title: p.seoTitle || p.title, description: p.description, langkah_berikut: 'build_site' };
+    },
+  },
+
+  get_organization: {
+    description: 'Lihat fakta lembaga yang dipakai Google dan asisten AI (schema.org): nama, deskripsi, alamat, kode pos, koordinat peta, jam buka, link Google Maps, area layanan, keahlian.',
+    schema: { type: 'object', properties: {} },
+    run() { return JSON.parse(fs.readFileSync(path.join(ROOT, 'content/organization.json'), 'utf8')); },
+  },
+
+  update_organization: {
+    description: 'Lengkapi fakta lembaga untuk SEO lokal (Google Maps, "bimbel STAN dekat saya") dan GEO. Hanya field yang dikirim yang diubah. Isi hanya data yang benar dari pengguna; jangan menebak koordinat atau jam buka.',
+    schema: {
+      type: 'object',
+      properties: {
+        description: { type: 'string' },
+        postalCode: { type: 'string', description: 'kode pos 5 angka' },
+        latitude: { type: 'number', description: 'mis. -6.27 (dari Google Maps)' },
+        longitude: { type: 'number', description: 'mis. 106.72' },
+        googleMapsUrl: { type: 'string', description: 'link Google Maps lokasi kantor' },
+        openingHours: {
+          type: 'array', description: 'mis. [{"days":["Senin","Selasa","Rabu","Kamis","Jumat"],"opens":"08:00","closes":"17:00"}]',
+          items: { type: 'object', properties: { days: { type: 'array', items: { type: 'string' } }, opens: { type: 'string' }, closes: { type: 'string' } }, required: ['days', 'opens', 'closes'] },
+        },
+        areaServed: { type: 'array', items: { type: 'string' }, description: 'kota/negara yang dilayani, mis. ["Indonesia","Tangerang Selatan"]' },
+        alternateName: { type: 'array', items: { type: 'string' } },
+      },
+    },
+    run(a) {
+      const file = path.join(ROOT, 'content/organization.json');
+      const o = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const DAYS = { senin: 'Monday', selasa: 'Tuesday', rabu: 'Wednesday', kamis: 'Thursday', jumat: 'Friday', "jum'at": 'Friday', sabtu: 'Saturday', minggu: 'Sunday', ahad: 'Sunday' };
+      const EN = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+      if (a.description !== undefined) { need(a.description.trim().length >= 60 && a.description.trim().length <= 300, 'description 60–300 karakter.'); o.description = a.description.trim(); }
+      if (a.postalCode !== undefined) { need(/^\d{5}$/.test(a.postalCode.trim()) || a.postalCode === '', 'kode pos harus 5 angka.'); o.address.postalCode = a.postalCode.trim(); }
+      if (a.latitude !== undefined || a.longitude !== undefined) {
+        const lat = a.latitude ?? o.geo.latitude, lng = a.longitude ?? o.geo.longitude;
+        need(typeof lat === 'number' && lat > -11.5 && lat < 6.5 && typeof lng === 'number' && lng > 94 && lng < 141.5, 'Koordinat harus di wilayah Indonesia (lat -11..6, lng 94..141); kirim latitude dan longitude.');
+        o.geo = { latitude: lat, longitude: lng };
+      }
+      if (a.googleMapsUrl !== undefined) { need(a.googleMapsUrl === '' || /^https:\/\/(www\.)?(google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps)/.test(a.googleMapsUrl), 'googleMapsUrl harus link Google Maps.'); o.googleMapsUrl = a.googleMapsUrl; }
+      if (a.openingHours !== undefined) {
+        o.openingHours = a.openingHours.map((h) => {
+          const days = h.days.map((d) => DAYS[d.toLowerCase()] || EN.find((e) => e.toLowerCase() === d.toLowerCase()));
+          need(days.every(Boolean), `hari tidak dikenal: ${h.days.join(', ')}`);
+          need(/^([01]\d|2[0-3]):[0-5]\d$/.test(h.opens) && /^([01]\d|2[0-3]):[0-5]\d$/.test(h.closes), 'jam harus format HH:MM, mis. 08:00.');
+          return { days, opens: h.opens, closes: h.closes };
+        });
+      }
+      if (a.areaServed !== undefined) o.areaServed = a.areaServed.map((x) => x.trim()).filter(Boolean);
+      if (a.alternateName !== undefined) o.alternateName = a.alternateName.map((x) => x.trim()).filter(Boolean);
+      fs.writeFileSync(file, JSON.stringify(o, null, 2) + '\n');
+      return { organisasi: o, langkah_berikut: 'build_site' };
+    },
+  },
+
+  ping_index: {
+    description: 'Kirim IndexNow: beri tahu Bing (juga dipakai Copilot), Yandex, dan mesin pencari lain bahwa halaman berubah, supaya cepat terindeks. Panggil SETELAH publish dan deploy selesai (±2 menit). Tanpa urls = semua halaman di sitemap. Google tidak memakai IndexNow (Google membaca sitemap.xml).',
+    schema: { type: 'object', properties: { urls: { type: 'array', items: { type: 'string' }, description: 'URL lengkap https://bimbelinfinity.com/...; kosong = semua' } } },
+    run({ urls = [] } = {}) { return require(path.join(ROOT, 'tools', 'indexnow.js')).pingSync(urls); },
   },
 
   list_themes: {

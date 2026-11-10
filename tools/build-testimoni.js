@@ -76,14 +76,15 @@ const chips = [`<button type="button" class="chip" data-city-filter="all" aria-p
 // ---------- shell from index.html ----------
 const cut = (a, b) => { const i = idx.indexOf(a), j = idx.indexOf(b, i); if (i < 0 || j < 0) throw new Error('marker ' + a); return idx.slice(i, j); };
 const SEO = require('./site.config');
+const SEOP = JSON.parse(fs.readFileSync(`${root}/content/seo.json`, 'utf8')).pages.testimoni;
 const pageUrl = `${SEO.SITE}/testimoni.html`;
 let head = idx.slice(0, idx.indexOf('<body>'));
 head = head
   .replace(/\s*<script>document\.documentElement\.classList\.add\("mo-js"\)[^\n]*\n/, '\n')
   .replace(/\s*<link rel="modulepreload"[^\n]*\n/, '\n');
 head = SEO.replaceSeo(head, SEO.seoHead({
-  title: 'Testimoni alumni 2018 · Bimbel Infinity',
-  description: `${A.length} siswa Bimbel Infinity dari Depok, Jember, Lombok, dan Sukabumi yang lulus PKN STAN 2018, lengkap dengan jurusan, asal sekolah, dan testimoni yang mereka tulis sendiri.`,
+  title: SEOP.title,
+  description: SEOP.description.replace('{count}', A.length),
   url: pageUrl,
   graph: [
     SEO.orgNode(), SEO.websiteNode(),

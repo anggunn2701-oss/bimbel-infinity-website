@@ -4,51 +4,46 @@ const SITE = 'https://bimbelinfinity.com';
 const CONTACT = require('./contact');
 const C = CONTACT.load();   // content/contact.json
 
+/* fakta lembaga: content/organization.json (diedit lewat MCP update_organization) */
+const O = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'content', 'organization.json'), 'utf8'));
 const ORG = {
-  name: 'Bimbel Infinity',
-  legalName: 'PT Infinity Global Inspiratif',
-  alternateName: ['Infinity', 'Bimbel STAN Infinity'],
-  description: 'Bimbel persiapan seleksi PKN STAN di Bintaro, Tangerang Selatan. Didirikan mahasiswa PKN STAN pada 17 April 2013; tentor mahasiswa dan alumni PKN STAN; gedung kelas tepat di depan kampus PKN STAN.',
-  foundingDate: '2013-04-17',
-  founder: 'Riandi Ahmad',
+  ...O,
   telephone: CONTACT.intl(C.phone),
   email: C.email,
   instagram: C.social && C.social.instagram ? `https://www.instagram.com/${C.social.instagram}/` : '',
   social: CONTACT.links(C),   // [{ platform, label, handle, url }] dari content/contact.json
-  address: {
-    streetAddress: 'Jl. Porselin No. 11 Blok E6, Perumahan Pondok Jaya, Bintaro Sektor 3A',
-    addressLocality: 'Tangerang Selatan',
-    addressRegion: 'Banten',
-    addressCountry: 'ID',
-  },
-  classrooms: [
-    'Jl. Pisok I Blok EA 15 No. 1, tepat di depan kampus PKN STAN, Tangerang Selatan',
-    'Jl. Sejahtera A 15/16 PJMI, Pondok Aren, Tangerang Selatan',
-  ],
+  address: Object.fromEntries(Object.entries(O.address).filter(([, v]) => v)),
 };
 
 const OG_IMAGE = `${SITE}/assets/og/og-default.jpg`;
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-const orgNode = () => ({
-  '@type': ['EducationalOrganization', 'LocalBusiness'],
-  '@id': `${SITE}/#organization`,
-  name: ORG.name,
-  legalName: ORG.legalName,
-  alternateName: ORG.alternateName,
-  description: ORG.description,
-  url: `${SITE}/`,
-  logo: { '@type': 'ImageObject', url: `${SITE}/assets/brand/logo-symbol.png` },
-  image: OG_IMAGE,
-  foundingDate: ORG.foundingDate,
-  founder: { '@type': 'Person', name: ORG.founder },
-  telephone: ORG.telephone,
-  email: ORG.email,
-  address: { '@type': 'PostalAddress', ...ORG.address },
-  areaServed: { '@type': 'Country', name: 'Indonesia' },
-  knowsAbout: ['Seleksi PKN STAN', 'SKD (Seleksi Kompetensi Dasar)', 'TWK', 'TIU', 'TKP', 'Sekolah kedinasan'],
-  sameAs: ORG.social.map((s) => s.url),
-});
+const orgNode = () => {
+  const node = {
+    '@type': ['EducationalOrganization', 'LocalBusiness'],
+    '@id': `${SITE}/#organization`,
+    name: ORG.name,
+    legalName: ORG.legalName,
+    alternateName: ORG.alternateName,
+    description: ORG.description,
+    url: `${SITE}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE}/assets/brand/logo-symbol.png` },
+    image: OG_IMAGE,
+    foundingDate: ORG.foundingDate,
+    founder: { '@type': 'Person', name: ORG.founder },
+    telephone: ORG.telephone,
+    email: ORG.email,
+    address: { '@type': 'PostalAddress', ...ORG.address },
+    areaServed: (ORG.areaServed || []).map((n) => (n === 'Indonesia' ? { '@type': 'Country', name: n } : { '@type': 'City', name: n })),
+    knowsAbout: ORG.knowsAbout,
+    sameAs: ORG.social.map((s) => s.url),
+  };
+  // only facts that were actually supplied
+  if (ORG.geo && ORG.geo.latitude != null && ORG.geo.longitude != null) node.geo = { '@type': 'GeoCoordinates', latitude: ORG.geo.latitude, longitude: ORG.geo.longitude };
+  if (ORG.googleMapsUrl) node.hasMap = ORG.googleMapsUrl;
+  if (ORG.openingHours && ORG.openingHours.length) node.openingHoursSpecification = ORG.openingHours.map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.days, opens: h.opens, closes: h.closes }));
+  return node;
+};
 const websiteNode = () => ({
   '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: ORG.name, inLanguage: 'id-ID',
   publisher: { '@id': `${SITE}/#organization` },

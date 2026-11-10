@@ -100,3 +100,10 @@ Two complete colour themes; the MCP can only switch between them (`list_themes`,
 One source, `content/contact.json` (WhatsApp, phone, email, WhatsApp greeting, and `social`: Instagram, X, LinkedIn, TikTok, YouTube, Facebook, Threads), edited through the MCP (`get_contact`, `update_contact`). The build writes the `CONTACT` block in `app.js` and rewrites every `tel:` link, displayed phone number, email, Instagram link/handle and the schema.org `telephone` in all generated pages and text files (`tools/contact.js`). With `whatsapp` empty every `.js-wa` button reads "Telepon admin" and dials; with a number it reads "Chat admin" and opens `wa.me` with that button's own message.
 
 - **Footer social row** (`.footer-social`, between SOCIAL markers): one 44px round icon link per filled account (Phosphor brand icons in `assets/icons/social/`), hover fills with `--primary`; empty accounts are not rendered. The same accounts feed schema.org `sameAs` and llms.txt.
+
+## SEO tooling
+
+- Page titles and descriptions: `content/seo.json` (`pages.home|testimoni|blog`, `postTitleSuffix`); articles may carry a shorter `seoTitle` (the H1 keeps `title`). The suffix is added only when the result stays ≤ 65 characters.
+- Organisation facts for schema.org: `content/organization.json`; `geo`, `openingHoursSpecification` and `hasMap` are emitted only when filled.
+- `tools/seo-audit.js` (MCP `seo_audit`): titles, descriptions, duplicates, H1, alt, image sizes, canonical, JSON-LD, article FAQ/summary/words/internal links, sitemap and llms coverage, robots, local-SEO data. Score 0–100.
+- IndexNow: key in `content/seo.json`, key file `<key>.txt` written at the root by the build; `tools/indexnow.js` (MCP `ping_index`) submits sitemap URLs after a deploy.

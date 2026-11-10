@@ -1,0 +1,24 @@
+{
+  "name": "Bimbel Infinity",
+  "legalName": "PT Infinity Global Inspiratif",
+  "alternateName": ["Infinity", "Bimbel STAN Infinity"],
+  "description": "Bimbel persiapan seleksi PKN STAN di Bintaro, Tangerang Selatan. Didirikan mahasiswa PKN STAN pada 17 April 2013; tentor mahasiswa dan alumni PKN STAN; gedung kelas tepat di depan kampus PKN STAN.",
+  "foundingDate": "2013-04-17",
+  "founder": "Riandi Ahmad",
+  "address": {
+    "streetAddress": "Jl. Porselin No. 11 Blok E6, Perumahan Pondok Jaya, Bintaro Sektor 3A",
+    "addressLocality": "Tangerang Selatan",
+    "addressRegion": "Banten",
+    "postalCode": "",
+    "addressCountry": "ID"
+  },
+  "geo": { "latitude": null, "longitude": null },
+  "openingHours": [],
+  "classrooms": [
+    "Jl. Pisok I Blok EA 15 No. 1, tepat di depan kampus PKN STAN, Tangerang Selatan",
+    "Jl. Sejahtera A 15/16 PJMI, Pondok Aren, Tangerang Selatan"
+  ],
+  "areaServed": ["Indonesia"],
+  "knowsAbout": ["Seleksi PKN STAN", "SKD (Seleksi Kompetensi Dasar)", "TWK", "TIU", "TKP", "Sekolah kedinasan"],
+  "googleMapsUrl": ""
+}

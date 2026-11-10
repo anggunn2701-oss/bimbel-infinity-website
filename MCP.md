@@ -28,15 +28,20 @@ Lalu restart Claude Desktop. Syarat: Node 20+ dan git terpasang, dan folder ini 
 - "Perbaiki jurusan lulusan Arif Rahman jadi D3 Pajak."
 - "Pasang nomor WhatsApp admin 0812xxxxxxxx." (semua tombol jadi Chat admin yang membuka WhatsApp)
 - "Tambahkan akun TikTok @bimbelinfinity dan LinkedIn https://www.linkedin.com/company/…" (ikon muncul di footer; akun kosong tidak tampil)
+- "Audit SEO website dan perbaiki yang bisa diperbaiki."
+- "Isi jam buka Senin–Jumat 08:00–17:00 dan kode pos 15224." (data dari Anda, jangan ditebak)
 - "Ganti tema website ke biru." (atau "kembalikan ke tema hijau")
 - "Terbitkan perubahannya."
 
 ## Alur
 
 1. **Edit**: `save_post`, `delete_post`, `update_hero`, `set_homepage_faq`, `update_program`, `save_testimonial_video`, `remove_testimonial_video`, `update_alumni`, `set_theme` (pilih tema warna dari `list_themes`; warna tidak bisa diedit satu per satu), `update_contact` (WhatsApp, telepon, email, pesan pembuka WhatsApp, dan akun sosmed Instagram, X, LinkedIn, TikTok, YouTube, Facebook, Threads; lihat dengan `get_contact`).
-2. **Bangun**: `build_site` (semua halaman, sitemap, llms.txt; cek link rusak).
+2. **Bangun**: `build_site` (semua halaman, sitemap, llms.txt; cek link rusak), lalu `seo_audit` (skor 0–100 dan daftar perbaikan SEO/AEO/GEO).
 3. **Cek**: `review_changes` (file yang berubah). Untuk melihat tampilannya, jalankan `npm start` dan buka http://localhost:3000.
 4. **Terbit**: `publish` dengan `confirm: true`: commit + push ke GitHub, lalu Railway men-deploy ulang otomatis.
+5. **Beri tahu mesin pencari**: sekitar 2 menit setelah publish, `ping_index` (IndexNow ke Bing/Copilot, Yandex, dan lainnya; Google membaca sitemap).
+
+SEO tambahan: `get_page_seo` / `update_page_seo` (judul Google dan meta description per halaman atau artikel), `get_organization` / `update_organization` (kode pos, koordinat, jam buka, link Google Maps, area layanan untuk SEO lokal).
 
 ## Pengaman
 
@@ -55,6 +60,8 @@ Lalu restart Claude Desktop. Syarat: Node 20+ dan git terpasang, dan folder ini 
 | `content/home.json` | hero, tiga program, FAQ orang tua |
 | `content/testimonial-videos.json` | video di barisan testimoni beranda |
 | `content/alumni-2018.json` | 38 lulusan 2018 di halaman testimoni |
+| `content/seo.json` | judul + deskripsi Google per halaman, akhiran judul, kunci IndexNow |
+| `content/organization.json` | fakta lembaga untuk schema.org (alamat, kode pos, koordinat, jam buka, area layanan) |
 | `content/contact.json` | WhatsApp, telepon, email, pesan pembuka WhatsApp, akun media sosial |
 | `content/theme.json` + `content/themes/*.json` | tema warna aktif dan isi tiap tema |
 

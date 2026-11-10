@@ -1,0 +1,18 @@
+{
+  "pages": {
+    "home": {
+      "title": "Bimbel Infinity · Persiapan PKN STAN di Bintaro sejak 2013",
+      "description": "Bimbel persiapan PKN STAN di Bintaro, didirikan mahasiswa PKN STAN sejak 2013. Tentor mahasiswa dan alumni STAN; kelas reguler, karantina, dan cabang daerah."
+    },
+    "testimoni": {
+      "title": "Testimoni alumni 2018 · Bimbel Infinity",
+      "description": "{count} siswa Bimbel Infinity dari Depok, Jember, Lombok, dan Sukabumi lulus PKN STAN 2018: jurusan, asal sekolah, dan testimoni tulisan mereka sendiri."
+    },
+    "blog": {
+      "title": "Blog · Panduan persiapan PKN STAN · Bimbel Infinity",
+      "description": "Panduan persiapan PKN STAN dari Bimbel Infinity: penjelasan SKD (TWK, TIU, TKP), memilih program, cerita lulusan, dan perjalanan Infinity sejak 2013."
+    }
+  },
+  "postTitleSuffix": " · Bimbel Infinity",
+  "indexnowKey": "db257a94024ae729f22555e38d4feb4c"
+}
