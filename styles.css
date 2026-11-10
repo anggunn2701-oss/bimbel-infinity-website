@@ -5,33 +5,33 @@
    ========================================================================== */
 
 /* THEME:START */
-/* Tema aktif: biru (Biru · Brand Colour Guideline (biru, cyan, oranye, kuning)). Dibuat dari content/themes/biru.json oleh tools/build-site.js; jangan edit di sini. */
+/* Tema aktif: hijau (Hijau · brand 2026 (hijau, oranye, lime)). Dibuat dari content/themes/hijau.json oleh tools/build-site.js; jangan edit di sini. */
 :root {
-  --primary: #0A43FF;
-  --primary-deep: #0634CC;
-  --primary-wash: #E7EEFF;
-  --on-primary: #FFFFFF;
-  --on-primary-2: rgba(255, 255, 255, 0.88);
-  --rule-on-primary: rgba(255, 255, 255, 0.22);
-  --accent: #FF7A00;
-  --accent-display: #E06200;
-  --accent-text: #B84A00;
-  --on-accent: #0F172A;
-  --on-accent-display: #0F172A;
-  --highlight: #FFE200;
-  --highlight-deep: #F2C900;
-  --curve-a: #00C2FF;
-  --curve-b: #FF7A00;
-  --curve-c: #0A43FF;
-  --paper: #F8FAFC;
-  --soft: #F1F4F9;
+  --primary: #0B6B53;
+  --primary-deep: #08523F;
+  --primary-wash: #E4EFEA;
+  --on-primary: #FCF7EB;
+  --on-primary-2: rgba(252, 247, 235, 0.86);
+  --rule-on-primary: rgba(252, 247, 235, 0.18);
+  --accent: #FF5A00;
+  --accent-display: #E14E00;
+  --accent-text: #B83F00;
+  --on-accent: #1E0C02;
+  --on-accent-display: #FFFFFF;
+  --highlight: #E7FF4F;
+  --highlight-deep: #D2EC2A;
+  --curve-a: #FCF7EB;
+  --curve-b: #FF5A00;
+  --curve-c: #0B6B53;
+  --paper: #FFFDF8;
+  --soft: #F6F1E4;
   --white: #FFFFFF;
-  --ink: #0F172A;
-  --ink-2: #475569;
-  --ink-3: #5B6B80;
-  --line: #E2E8F0;
-  --line-2: #CBD5E1;
-  --shade: #0B1530;
+  --ink: #0F2A22;
+  --ink-2: #3D554C;
+  --ink-3: #5F726B;
+  --line: #E8E2D3;
+  --line-2: #D6CCB6;
+  --shade: #06241C;
   --ph-text: #9A3600;
 }
 /* THEME:END */
