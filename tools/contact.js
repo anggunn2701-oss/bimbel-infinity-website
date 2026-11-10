@@ -56,6 +56,7 @@ function validate(c) {
     if (!SOCIAL[k]) errors.push(`platform sosmed "${k}" tidak dikenal.`);
     else if (v && !SOCIAL[k].re.test(v)) errors.push(`${SOCIAL[k].label}: "${v}" bukan nama akun yang valid.`);
   }
+  for (const k of c.showEmpty || []) if (!SOCIAL[k]) errors.push(`showEmpty: platform "${k}" tidak dikenal.`);
   return errors;
 }
 
@@ -74,15 +75,24 @@ function apply(text, c = load()) {
   return out;
 }
 
-/* footer social row (between SOCIAL markers in index.html) */
+/* footer social row (between SOCIAL markers in index.html).
+   Filled accounts are links; platforms listed in showEmpty but not filled yet render as a dimmed,
+   non-clickable icon ("segera hadir") and stay out of schema.org sameAs. */
 function renderSocial(c = load()) {
-  const list = links(c);
-  if (!list.length) return '';
+  const filled = new Map(links(c).map((s) => [s.platform, s]));
+  const order = Object.keys(SOCIAL).filter((k) => filled.has(k) || (c.showEmpty || []).includes(k));
+  if (!order.length) return '';
   const icon = (k) => fs.readFileSync(path.join(root, 'assets/icons/social', `${ICON[k]}.svg`), 'utf8').trim()
     .replace('<svg ', '<svg class="social-ico" aria-hidden="true" focusable="false" ');
+  const item = (k) => {
+    const s = filled.get(k);
+    return s
+      ? `            <li><a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.label} ${s.handle}" title="${s.label} ${s.handle}">${icon(k)}</a></li>`
+      : `            <li><span class="is-soon" role="img" aria-label="${SOCIAL[k].label} Bimbel Infinity segera hadir" title="${SOCIAL[k].label}: segera hadir">${icon(k)}</span></li>`;
+  };
   return `
           <ul class="footer-social" aria-label="Media sosial Bimbel Infinity">
-${list.map((s) => `            <li><a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.label} ${s.handle}" title="${s.label} ${s.handle}">${icon(s.platform)}</a></li>`).join('\n')}
+${order.map(item).join('\n')}
           </ul>
           `;
 }

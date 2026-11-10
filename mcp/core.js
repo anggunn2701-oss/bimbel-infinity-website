@@ -298,6 +298,7 @@ const TOOLS = {
           properties: { instagram: { type: 'string' }, x: { type: 'string' }, linkedin: { type: 'string' }, tiktok: { type: 'string' }, youtube: { type: 'string' }, facebook: { type: 'string' }, threads: { type: 'string' } },
         },
         instagram: { type: 'string', description: '(lama) sama dengan social.instagram' },
+        show_empty: { type: 'array', items: { type: 'string' }, description: 'platform yang ikonnya tetap tampil redup ("segera hadir") walau akun belum diisi, mis. ["x","linkedin"]; [] = sembunyikan semua yang kosong' },
       },
     },
     run(a) {
@@ -313,6 +314,7 @@ const TOOLS = {
       for (const [k, v] of Object.entries(social)) {
         try { next.social[k] = C.normalizeSocial(k, v); } catch (e) { throw new UserError(e.message); }
       }
+      if (a.show_empty !== undefined) next.showEmpty = a.show_empty.map((x) => norm(x).toLowerCase());
       const errs = C.validate(next);
       need(!errs.length, errs.join(' '));
       fs.writeFileSync(C.FILE, JSON.stringify(next, null, 2) + '\n');

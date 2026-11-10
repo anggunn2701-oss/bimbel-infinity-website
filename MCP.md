@@ -27,7 +27,7 @@ Lalu restart Claude Desktop. Syarat: Node 20+ dan git terpasang, dan folder ini 
 - "Ubah judul hero jadi …"
 - "Perbaiki jurusan lulusan Arif Rahman jadi D3 Pajak."
 - "Pasang nomor WhatsApp admin 0812xxxxxxxx." (semua tombol jadi Chat admin yang membuka WhatsApp)
-- "Tambahkan akun TikTok @bimbelinfinity dan LinkedIn https://www.linkedin.com/company/…" (ikon muncul di footer; akun kosong tidak tampil)
+- "Tambahkan akun TikTok @bimbelinfinity dan LinkedIn https://www.linkedin.com/company/…" (ikon muncul di footer; platform di `show_empty` tampil redup "segera hadir" sampai akunnya diisi)
 - "Audit SEO website dan perbaiki yang bisa diperbaiki."
 - "Isi jam buka Senin–Jumat 08:00–17:00 dan kode pos 15224." (data dari Anda, jangan ditebak)
 - "Ganti tema website ke biru." (atau "kembalikan ke tema hijau")

@@ -11,5 +11,9 @@
     "youtube": "",
     "facebook": "",
     "threads": ""
-  }
+  },
+  "showEmpty": [
+    "x",
+    "linkedin"
+  ]
 }
