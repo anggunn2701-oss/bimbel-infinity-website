@@ -934,3 +934,47 @@ html.intro-fade body { animation: intro-fade .3s ease-out both; }
 .footer-social a:hover { color: var(--on-primary); background: var(--primary); border-color: var(--primary); transform: translateY(-1px); }
 .footer-social a:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 .social-ico { width: 20px; height: 20px; }
+
+/* ======================================================================
+   Responsive pass (Nov 2026): audited at 360, 390, 430, 768, 834, 1024, 1280, 1440, 1920.
+   ====================================================================== */
+
+/* Tablet portrait (721–900): keep the hero as two columns instead of stacking early */
+@media (min-width: 721px) and (max-width: 900px) {
+  .hero-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: 0; column-gap: 20px; }
+  .hero-text { grid-column: 1 / 8; padding-right: 0; }
+  .hero-visual { grid-column: 8 / 13; justify-self: end; width: 100%; max-width: none; aspect-ratio: 4 / 5; max-height: calc(100svh - 150px); }
+  .hero-proof { margin-top: 32px; }
+  .hero-actions .btn { flex: 1 1 auto; }
+}
+/* Phones and small tablets: the stacked video fills the column, centred and capped */
+@media (max-width: 720px) {
+  .hero-visual { width: 100%; max-width: 560px; justify-self: center; }
+}
+
+/* Small phones: section headings one step smaller so they don't run to four lines */
+@media (max-width: 400px) {
+  .h2 { font-size: 1.8rem; }
+  .testi-head .h2, .teaser-head .h2 { font-size: 1.8rem; }
+  .blog-hero h1, .post-head h1 { font-size: 1.95rem; }
+}
+
+/* Tables in articles: scroll sideways on phones, with a soft shadow showing there is more */
+.table-scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(to right, var(--paper) 30%, transparent) left / 32px 100% no-repeat local,
+    linear-gradient(to left, var(--paper) 30%, transparent) right / 32px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--ink) 16%, transparent), transparent) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--ink) 16%, transparent), transparent) right / 12px 100% no-repeat scroll;
+}
+@media (max-width: 480px) { .prose table { font-size: .92rem; } .prose th, .prose td { padding: 10px 12px; } }
+
+/* Touch targets */
+.crumbs a { display: inline-block; padding-block: 6px; }
+.al-tag { font-size: .82rem; }
+
+/* Reduced motion on wide screens: the static video row sits centred instead of leaving a gap */
+@media (prefers-reduced-motion: reduce) {
+  .ugc-track { margin-inline: auto; }
+}
