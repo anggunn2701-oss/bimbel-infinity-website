@@ -97,4 +97,6 @@ Two complete colour themes; the MCP can only switch between them (`list_themes`,
 
 ## Contact
 
-One source, `content/contact.json` (WhatsApp, phone, email, Instagram, WhatsApp greeting), edited through the MCP (`get_contact`, `update_contact`). The build writes the `CONTACT` block in `app.js` and rewrites every `tel:` link, displayed phone number, email, Instagram link/handle and the schema.org `telephone` in all generated pages and text files (`tools/contact.js`). With `whatsapp` empty every `.js-wa` button reads "Telepon admin" and dials; with a number it reads "Chat admin" and opens `wa.me` with that button's own message.
+One source, `content/contact.json` (WhatsApp, phone, email, WhatsApp greeting, and `social`: Instagram, X, LinkedIn, TikTok, YouTube, Facebook, Threads), edited through the MCP (`get_contact`, `update_contact`). The build writes the `CONTACT` block in `app.js` and rewrites every `tel:` link, displayed phone number, email, Instagram link/handle and the schema.org `telephone` in all generated pages and text files (`tools/contact.js`). With `whatsapp` empty every `.js-wa` button reads "Telepon admin" and dials; with a number it reads "Chat admin" and opens `wa.me` with that button's own message.
+
+- **Footer social row** (`.footer-social`, between SOCIAL markers): one 44px round icon link per filled account (Phosphor brand icons in `assets/icons/social/`), hover fills with `--primary`; empty accounts are not rendered. The same accounts feed schema.org `sameAs` and llms.txt.

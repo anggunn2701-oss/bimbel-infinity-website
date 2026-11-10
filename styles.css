@@ -923,3 +923,14 @@ html.intro-fade body { animation: intro-fade .3s ease-out both; }
 .post-cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .post-more { margin-top: 56px; }
 .post-more .post-rows { margin-top: 12px; }
+
+/* ---------- Footer social row (content/contact.json → social); only filled accounts render ---------- */
+.footer-social { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.footer-social a {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--line-2); color: var(--ink-2); background: var(--white);
+  transition: color .2s, border-color .2s, background-color .2s, transform .2s var(--ease-out);
+}
+.footer-social a:hover { color: var(--on-primary); background: var(--primary); border-color: var(--primary); transform: translateY(-1px); }
+.footer-social a:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.social-ico { width: 20px; height: 20px; }

@@ -13,7 +13,8 @@ const ORG = {
   founder: 'Riandi Ahmad',
   telephone: CONTACT.intl(C.phone),
   email: C.email,
-  instagram: `https://www.instagram.com/${C.instagram}/`,
+  instagram: C.social && C.social.instagram ? `https://www.instagram.com/${C.social.instagram}/` : '',
+  social: CONTACT.links(C),   // [{ platform, label, handle, url }] dari content/contact.json
   address: {
     streetAddress: 'Jl. Porselin No. 11 Blok E6, Perumahan Pondok Jaya, Bintaro Sektor 3A',
     addressLocality: 'Tangerang Selatan',
@@ -46,7 +47,7 @@ const orgNode = () => ({
   address: { '@type': 'PostalAddress', ...ORG.address },
   areaServed: { '@type': 'Country', name: 'Indonesia' },
   knowsAbout: ['Seleksi PKN STAN', 'SKD (Seleksi Kompetensi Dasar)', 'TWK', 'TIU', 'TKP', 'Sekolah kedinasan'],
-  sameAs: [ORG.instagram],
+  sameAs: ORG.social.map((s) => s.url),
 });
 const websiteNode = () => ({
   '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: ORG.name, inLanguage: 'id-ID',

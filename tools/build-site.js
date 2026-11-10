@@ -57,6 +57,7 @@ idx = versionAssets(idx);
 
 /* ---------- 0. data-driven homepage parts (content/home.json, content/testimonial-videos.json) ---------- */
 idx = R.between(idx, 'HERO', R.hero(HOME.hero));
+idx = R.between(idx, 'SOCIAL', CONTACT.renderSocial());
 idx = R.between(idx, 'FAQ', R.faq(HOME.faq));
 idx = R.between(idx, 'PROGRAMS', R.programs(HOME.programs));
 idx = R.between(idx, 'TESTI_TILES', R.testiTiles(VIDEOS));
@@ -272,7 +273,7 @@ Fakta utama:
 - Materi: SKD (Seleksi Kompetensi Dasar) berisi TWK, TIU, dan TKP.
 - Pernah membuka kelas di 14 kota, antara lain Medan, Palembang, Bandung, Yogyakarta, Lombok, Jember, Surabaya, dan Makassar.
 - 38 siswa Infinity dari Depok, Jember, Lombok, dan Sukabumi diterima di PKN STAN pada seleksi 2018 (147.702 pendaftar, 7.301 kursi menurut data Panselnas 2018).
-- Kontak: telepon 021-22733744, email ${S.ORG.email}, Instagram @bimbelinfinity.
+- Kontak: telepon 021-22733744, email ${S.ORG.email}${S.ORG.social.map((x) => `, ${x.label} ${x.handle}`).join('')}.
 
 ## Halaman utama
 - [Beranda](${S.SITE}/): program, cara mengajar, video testimoni, FAQ orang tua, lokasi, dan sejarah.
@@ -289,7 +290,8 @@ ${S.ORG.description}
 Nama resmi: ${S.ORG.legalName}. Berdiri: 17 April 2013. Pendiri: Riandi Ahmad bersama Sabrina Hakim, Muhammad Sopyan, Ferdian Jati Permana, Dwi Widiatmoko, dan Fachri Ahmad (mahasiswa PKN STAN).
 Kantor utama: ${S.ORG.address.streetAddress}, ${S.ORG.address.addressLocality}, ${S.ORG.address.addressRegion}.
 Gedung kelas: ${S.ORG.classrooms.join('; ')}.
-Kontak: telepon 021-22733744, email ${S.ORG.email}, Instagram ${S.ORG.instagram}.
+Kontak: telepon 021-22733744, email ${S.ORG.email}.
+Media sosial: ${S.ORG.social.map((x) => `${x.label} ${x.url}`).join('; ') || '-'}.
 
 ## Program
 ${progLines}
